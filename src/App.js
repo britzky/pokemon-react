@@ -1,11 +1,12 @@
 import './App.css';
-import { Header } from './components/Header';
+import { Footer, Header } from './components';
 
 function App() {
   
   return (
     <div className="dark:bg-dark">
       <Header />
+      <Footer />
     </div>
   );
 }
