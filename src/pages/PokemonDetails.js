@@ -1,6 +1,11 @@
 import { useFetchPokemon } from "../hooks/useFetchPokemon";
 import { useParams } from "react-router-dom";
 
+import { Button } from "../components";
+
+import pokeball from "../assets/icons/pokeball.svg"
+import run from "../assets/icons/run.svg"
+
 
 export const PokemonDetails = () => {
     const { name: pokeName } = useParams();
@@ -27,12 +32,12 @@ export const PokemonDetails = () => {
                 <div className="border row-span-2">
                     <h1 className="text-5xl text-center">Stats:</h1>
                 </div>
-                <div className=" col-start-3 row-span-2 flex flex-row-reverse border">
-                    <img className="object-contain" src={pokemon.sprites.front_default} alt={pokemon.name} />
-                    <div>
-                      <button >Catch</button>
-                      <button>Run away</button>
-                    </div>
+                <div className=" col-start-3 row-span-2 border">                  
+                    <img className="object-contain w-full" src={pokemon.sprites.front_default} alt={pokemon.name} />
+                      <div className="flex justify-around items-center mt-14">
+                        <Button image={pokeball}>Catch</Button>
+                        <Button image={run}>Run</Button>
+                      </div>
                 </div>
                 <div className="border">
                     <h1 className="text-5xl text-center">Evolutions:</h1>

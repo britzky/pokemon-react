@@ -13,11 +13,11 @@ export const Button = (
 ) => {
 
     const buttonStyle = `text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 ${bgColor} ${hoverColor} ${focusColor} ${darkBgColor} ${darkHoverColor} ${darkFocusColor}`
-    
+
   return (
     <button type="button" className={buttonStyle}>
-      <img src={image} alt={imageName} />
       {children}
+      <img src={image} alt={imageName} className="h-10 ml-4" />
     </button>
   );
 };
