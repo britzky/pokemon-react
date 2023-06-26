@@ -1,18 +1,21 @@
 import { typeImages } from "../assets/images/types"
+import { Button } from "../components"
 
-export const Card = ({ isImage, content, pokemonType, pokemonImage, pokemonName }) => {
+export const Card = ({ isImage, isButton, content, pokemonType, pokemonImage, pokemonName }) => {
 
     const background = typeImages[pokemonType]
 
   return (
-    <section className="shadow-lg border p-2 border-gray-500 rounded-xl">
-        {isImage ? 
+    <section className="p-2">
+        {isImage ? (
             <div style={{ backgroundImage: `url(${background})`}} className="rounded-lg bg-cover bg-black/50 bg-gradient-to-b">
-                <img src={pokemonImage} alt={pokemonName} className=" w-full" />
+                <img src={pokemonImage} alt={pokemonName} className="w-full" />
             </div>
-            :
+        ) : (
             <p>{content}</p> 
-        }
+        )
+    }
+    {isButton && <Button />}
     </section>
   )
 }
