@@ -21,23 +21,25 @@ export const PokemonDetails = () => {
             </div>
             <div className="grid grid-cols-3 grid-rows-3 gap-7 min-h-screen">
                 <div className="border">
-                    <h1 className="text-5xl text-center">Abilities</h1>
+                    <h1 className="text-5xl text-center">Abilities:</h1>
 
                 </div>
-                <div className="border">
-
+                <div className="border row-span-2">
+                    <h1 className="text-5xl text-center">Stats:</h1>
                 </div>
                 <div className=" col-start-3 row-span-2 flex flex-row-reverse border">
                     <img className="object-contain" src={pokemon.sprites.front_default} alt={pokemon.name} />
+                    <div>
+                      <button >Catch</button>
+                      <button>Run away</button>
+                    </div>
                 </div>
                 <div className="border">
-
+                    <h1 className="text-5xl text-center">Evolutions:</h1>
                 </div>
-                <div className="border">
-
-                </div>
+   
                 <div className="border col-span-3">
-
+                    <h1 className="text-5xl m-4">Locations:</h1>
                 </div>
 
             </div>
