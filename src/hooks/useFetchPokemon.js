@@ -2,22 +2,32 @@ import { useState, useEffect } from "react";
 
 export const useFetchPokemon = (pokeName) => {
     const [pokemonInfo, setPokemonInfo] = useState([]);
-    const baseUrl = `https://pokeapi.co/api/v2/pokemon/${pokeName}`
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
+
 
     useEffect(() => {
         const getPokemonInfo = async () => {
+            if (!pokeName){
+                return;
+            }
+
+            setLoading(true);
             try {
-                const response = await fetch(baseUrl);
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`);
                 if (!response.ok){
-                    throw new Error('pokemon fetch failed');
+                    throw new Error(`pokemon fetch failed with status: ${response.status}`);
                 }
                 const data = await response.json();
                 setPokemonInfo(data);
-                }catch(error){
-                console.log('pokemon fetch failed')
-                }
+                setError(null);
+            } catch(error) {
+                setError(error.message)
+            } finally {
+                setLoading(false)
+            }
         }
         getPokemonInfo();
-    }, [baseUrl])
-  return { pokemonInfo }
+    }, [pokeName])
+  return { pokemonInfo, loading, error }
 }
