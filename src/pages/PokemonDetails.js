@@ -25,6 +25,7 @@ export const PokemonDetails = () => {
         baseStat: stat.base_stat,
         statName: stat.stat.name,
     }))
+
     
   return (
     <main>
@@ -36,28 +37,33 @@ export const PokemonDetails = () => {
                     <h1 className="text-5xl text-center">Abilities:</h1>
 
                 </div>
-                <div className={`${typeColors[pokemonType]} border-4 rounded-xl row-span-2 dark:text-gray-300`}>
-                    <h1 className="text-5xl text-center">Stats:</h1>
-                    <div className="flex flex-col items-center gap-10">
+                <div className={`${typeColors[pokemonType]} border-4 rounded-xl row-span-2 dark:text-gray-300 flex flex-col items-center py-4`}>
+                    <div>
+                    <h1 className="text-5xl pb-3">Stats:</h1>
+                    </div>
+                    <div className="flex flex-col justify-around h-full text-2xl">
                       {pokemonStats.map((stat) => (
-                        <>
-                        <p>{stat.statName}:</p>
+                        <div className="flex justify-between">
+                        <p>{stat.statName.toUpperCase()}:</p>
                         <p>{stat.baseStat}</p>
-                        </>
+                        </div>
                       ))}
                     </div>
                 </div>
-                <div className={`${typeColors[pokemonType]} col-start-3 row-span-2 border-4 rounded-xl dark:text-gray-300`}> 
+                <div className={`${typeColors[pokemonType]} col-start-3 row-span-2 border-4 rounded-xl dark:text-gray-300 flex flex-col justify-between pb-6`}> 
                     <Card 
                       isImage={true} 
                       pokemonImage={pokemon.sprites.front_default}
                       pokemonType={pokemonType}
                     />                 
-                      <div className="flex justify-around items-center mt">
+                      <div className="flex flex-col items-center text-2xl">
+                        <p>PokeDex ID: {pokemon.order}</p>
+                        <p>Base Experience: {pokemon.base_experience}</p>
+                      </div>
+                      <div className="flex justify-around items-center">
                         <Button image={pokeball}>Catch</Button>
                         <Button image={run}>Run</Button>
                       </div>
-                        <p>Base Experience: {pokemon.base_experience}</p>
                 </div>
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300`}>
                     <h1 className="text-5xl text-center">Evolutions:</h1>
