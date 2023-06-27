@@ -24,7 +24,7 @@ export const PokemonDetails = () => {
     
   return (
     <main>
-            <div className={`${typeColors[pokemonType]} border-4 mb-20 pb-10 rounded-full`}>
+            <div className={`${typeColors[pokemonType]} border-4 my-20 pb-10 rounded-full`}>
               <h1 className="text-7xl text-center mt-10">{pokemon.name.toUpperCase()}</h1>
             </div>
             <div className="grid grid-cols-3 grid-rows-3 gap-7 min-h-screen">
