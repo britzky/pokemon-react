@@ -21,18 +21,18 @@ export const PokemonDetails = () => {
     
   return (
     <main>
-            <div className="bg-red-500 mb-20 pb-5">
+            <div className="bg-red-500 mb-20 pb-5 rounded-full">
               <h1 className="text-7xl text-center mt-10">{pokemon.name}</h1>
             </div>
             <div className="grid grid-cols-3 grid-rows-3 gap-7 min-h-screen">
-                <div className="border rounded-xl shadow-lg hover:shadow-xl">
+                <div className="border-4 rounded-xl shadow-lg hover:shadow-xl">
                     <h1 className="text-5xl text-center">Abilities:</h1>
 
                 </div>
-                <div className="border rounded-xl row-span-2 shadow-lg hover:shadow-xl">
+                <div className="border-4 rounded-xl row-span-2 shadow-lg hover:shadow-xl">
                     <h1 className="text-5xl text-center">Stats:</h1>
                 </div>
-                <div className=" col-start-3 row-span-2 border rounded-xl shadow-lg hover:shadow-xl"> 
+                <div className=" col-start-3 row-span-2 border-4 rounded-xl shadow-lg hover:shadow-xl"> 
                     <Card 
                       isImage={true} 
                       pokemonImage={pokemon.sprites.front_default}
@@ -43,11 +43,11 @@ export const PokemonDetails = () => {
                         <Button image={run}>Run</Button>
                       </div>
                 </div>
-                <div className="border rounded-xl shadow-lg hover:shadow-xl">
+                <div className="border-4 rounded-xl shadow-lg hover:shadow-xl">
                     <h1 className="text-5xl text-center">Evolutions:</h1>
                 </div>
    
-                <div className="border rounded-xl col-span-3 shadow-lg hover:shadow-xl">
+                <div className="border-4 rounded-xl col-span-3 shadow-lg hover:shadow-xl">
                     <h1 className="text-5xl m-4">Locations:</h1>
                 </div>
 
