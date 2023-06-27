@@ -15,7 +15,6 @@ export const Card = ({ isImage, isButton, content, pokemonType, pokemonImage, po
             <p>{content}</p> 
         )
     }
-    {isButton && <Button />}
     </section>
   )
 }

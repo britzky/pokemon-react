@@ -21,6 +21,10 @@ export const PokemonDetails = () => {
     }
 
     let pokemonType = pokemon.types[0].type.name;
+    let pokemonStats = pokemon.stats.map((stat) => ({
+        baseStat: stat.base_stat,
+        statName: stat.stat.name,
+    }))
     
   return (
     <main>
@@ -34,6 +38,14 @@ export const PokemonDetails = () => {
                 </div>
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl row-span-2 shadow-lg hover:shadow-xl`}>
                     <h1 className="text-5xl text-center">Stats:</h1>
+                    <div>
+                      {pokemonStats.map((stat) => (
+                        <>
+                        <p>{stat.statName}:</p>
+                        <p>{stat.baseStat}</p>
+                        </>
+                      ))}
+                    </div>
                 </div>
                 <div className={`${typeColors[pokemonType]} col-start-3 row-span-2 border-4 rounded-xl shadow-lg hover:shadow-xl`}> 
                     <Card 
