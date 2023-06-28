@@ -45,7 +45,7 @@ export const PokemonDetails = () => {
                     <div>
                     <h1 className="text-5xl pb-3">Stats:</h1>
                     </div>
-                    <div className="flex flex-col justify-around h-full text-2xl">
+                    <div className="flex flex-col justify-around h-full text-xl">
                       {pokemonStats.map((stat) => (
                         <div className="flex justify-between">
                         <p>{stat.statName.toUpperCase()}:</p>
