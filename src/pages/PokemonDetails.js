@@ -33,9 +33,13 @@ export const PokemonDetails = () => {
               <h1 className="text-7xl text-center mt-10 dark:text-gray-300">{pokemon.name.toUpperCase()}</h1>
             </div>
             <div className="grid grid-cols-3 grid-rows-3 gap-7 min-h-screen">
-                <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300`}>
-                    <h1 className="text-5xl text-center">Abilities:</h1>
-
+                <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300 flex flex-col items-center`}>
+                    <h1 className="text-5xl">Abilities:</h1>
+                    <div className="text-2xl">
+                      {pokemon.abilities.map((ability) => (
+                        <p className="py-7">{ability.ability.name}</p>
+                      ))}
+                    </div>
                 </div>
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl row-span-2 dark:text-gray-300 flex flex-col items-center py-4`}>
                     <div>
