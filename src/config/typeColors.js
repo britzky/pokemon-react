@@ -1,6 +1,6 @@
 export const typeColors = {
     bug: 'bg-emerald-700 dark:bg-emerald-900 border-emerald-500 dark:border-emerald-700 shadow-md shadow-emerald-900 hover:shadow-lg hover:shadow-emerald-900',
-    dark: 'bg-gray-700 dark:bg-gray-900 border-gray-500 dark:border-gray-700 shadow-md shadow-gray-900 hover:shadow-lg hover:shadow-gray-900',
+    dark: 'bg-slate-700 dark:bg-slate-900 border-slate-500 dark:border-slate-700 shadow-md shadow-slate-900 hover:shadow-lg hover:shadow-slate-900',
     dragon: 'bg-orange-600 dark:bg-orange-800 border-orange-400 dark:border-orange-600 shadow-md shadow-orange-900 hover:shadow-lg hover:shadow-orange-900',
     electric: 'bg-yellow-400 dark:bg-yellow-600 border-yellow-200 dark:border-yellow-400 shadow-md shadow-yellow-900 hover:shadow-lg hover:shadow-yellow-900',
     fairy: 'bg-pink-400 dark:bg-pink-600 border-pink-200 dark:border-pink-400 shadow-md shadow-pink-900 hover:shadow-lg hover:shadow-pink-900',

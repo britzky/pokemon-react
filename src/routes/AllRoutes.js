@@ -3,7 +3,7 @@ import { PokemonDetails, Home, PageNotFound } from "../pages";
 
 export const AllRoutes = () => {
   return (
-    <div className="dark:bg-gray-800 bg-gray-200">
+    <div className="dark:bg-gray-800 bg-gray-100">
         <Routes>
             <Route path="" element={<Home />} />
             <Route path="pokemon/:name" element={<PokemonDetails />} />  
