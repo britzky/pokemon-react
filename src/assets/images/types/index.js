@@ -9,6 +9,7 @@ import flying from './flying.jpg';
 import ghost from './ghost.jpg';
 import grass from './grass.jpg';
 import ground from './ground.jpg';
+import ice from './ice.jpg';
 import normal from './normal.jpg';
 import poison from './poison.jpg';
 import psychic from './psychic.jpg';
@@ -28,6 +29,7 @@ export const typeImages = {
     ghost,
     grass,
     ground,
+    ice,
     normal,
     poison,
     psychic,

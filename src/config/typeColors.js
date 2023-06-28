@@ -10,6 +10,7 @@ export const typeColors = {
     ghost: 'bg-violet-500 dark:bg-violet-700 border-violet-300 dark:border-violet-500 shadow-md shadow-violet-900 hover:shadow-lg hover:shadow-violet-900',
     grass: 'bg-green-500 dark:bg-green-700 border-green-300 dark:border-green-500 shadow-md shadow-green-900 hover:shadow-lg hover:shadow-green-900',
     ground: 'bg-yellow-700 dark:bg-yellow-900 border-yellow-500 dark:border-yellow-700 shadow-md shadow-yellow-950 hover:shadow-lg hover:shadow-yellow-950',
+    ice: 'bg-cyan-300 dark:bg-cyan-500 border-cyan-200 dark:border-cyan-300 shadow-md shadow-cyan-900 hover:shadow-xl hover:shadow-cyan-900',
     normal: 'bg-neutral-500 dark:bg-neutral-700 border-neutral-300 dark:border-neutral-500 shadow-md shadow-neutral-900 hover:shadow-lg hover:shadow-neutral-900',
     poison: 'bg-lime-600 dark:bg-lime-800 border-lime-400 dark:border-lime-600 shadow-md shadow-lime-900 hover:shadow-lg hover:shadow-lime-900',
     psychic: 'bg-fuchsia-600 dark:bg-fuchsia-800 border-fuchsia-400 dark:border-fuchsia-600 shadow-md shadow-fuchsia-900 hover:shadow-lg hover:shadow-fuchsia-900',
