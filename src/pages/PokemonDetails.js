@@ -74,7 +74,15 @@ export const PokemonDetails = () => {
                 </div>
    
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl col-span-3 dark:text-gray-300`}>
-                    <h1 className="text-5xl m-4">Locations:</h1>
+                    <h1 className="text-5xl m-4">Appears in:</h1>
+                    <div className="flex flex-wrap gap-10 text-2xl p-7">
+                        {pokemon.game_indices.map((game) => (
+                          <>
+                          <p>{game.version.name}</p>
+                          <p>|</p>
+                          </>
+                        ))}
+                    </div>
                 </div>
 
             </div>
