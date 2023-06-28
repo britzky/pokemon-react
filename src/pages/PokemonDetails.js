@@ -3,6 +3,7 @@ import { typeColors } from "../config/typeColors";
 import { useParams } from "react-router-dom";
 
 import { Button, Card } from "../components";
+import { typeIcons } from "../components/icons";
 
 import pokeball from "../assets/icons/pokeball.svg"
 import run from "../assets/icons/run.svg"
@@ -37,7 +38,11 @@ export const PokemonDetails = () => {
     <main>
             <div className="grid grid-cols-3 gap-7 min-h-screen">
             <div className={`${typeColors[pokemonType]} border-4 py-3 rounded-full col-span-3`}>
-              <h1 className="text-7xl text-center dark:text-gray-300">{pokemon.name.toUpperCase()}</h1>
+              <div className="flex justify-around items-center">
+                {typeIcons[pokemonType]}
+                <h1 className="text-7xl text-center dark:text-gray-300">{pokemon.name.toUpperCase()}</h1>
+                {typeIcons[pokemonType]}
+              </div>
             </div>
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300 flex flex-col items-center`}>
                     <h1 className="text-5xl">Abilities:</h1>
