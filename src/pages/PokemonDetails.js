@@ -24,15 +24,21 @@ export const PokemonDetails = () => {
     let pokemonStats = pokemon.stats.map((stat) => ({
         baseStat: stat.base_stat,
         statName: stat.stat.name,
-    }))
+    }));
+
+    const levelUpMoves = pokemon.moves.filter(move => {
+      return move.version_group_details.some(detail => {
+        return detail.move_learn_method.name === 'level-up'
+      });
+    });
 
     
   return (
     <main>
-            <div className={`${typeColors[pokemonType]} border-4 my-20 pb-10 rounded-full`}>
+            <div className={`${typeColors[pokemonType]} border-4 my-14 pb-10 rounded-full`}>
               <h1 className="text-7xl text-center mt-10 dark:text-gray-300">{pokemon.name.toUpperCase()}</h1>
             </div>
-            <div className="grid grid-cols-3 grid-rows-3 gap-7 min-h-screen">
+            <div className="grid grid-cols-3 gap-7 min-h-screen">
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300 flex flex-col items-center`}>
                     <h1 className="text-5xl">Abilities:</h1>
                     <div className="text-2xl">
@@ -60,20 +66,31 @@ export const PokemonDetails = () => {
                       pokemonImage={pokemon.sprites.front_default}
                       pokemonType={pokemonType}
                     />                 
-                      <div className="flex flex-col items-center text-2xl">
-                        <p>PokeDex ID: {pokemon.order}</p>
-                        <p>Base Experience: {pokemon.base_experience}</p>
-                      </div>
-                      <div className="flex justify-around items-center">
+                      <div className="flex justify-around items-center mt-2">
                         <Button image={pokeball}>Catch</Button>
                         <Button image={run}>Run</Button>
                       </div>
                 </div>
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300`}>
-                    <h1 className="text-5xl text-center">Evolutions:</h1>
+                      <div className="flex flex-col items-center text-2xl py-2">
+                        <h1 className="text-5xl pb-7">Extra Info:</h1>
+                        <p>PokeDex ID: {pokemon.order}</p>
+                        <p>Base Experience: {pokemon.base_experience}</p>
+                      </div>
                 </div>
    
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl col-span-3 dark:text-gray-300`}>
+                    <h1 className="text-5xl m-4">Moves Learned by Level-Up:</h1>
+                    <div className="text-2xl flex flex-wrap gap-10 p-7">
+                      {levelUpMoves.map((move, index) => (
+                        <>
+                        <p key={index}>{move.move.name}</p>
+                        <p>|</p>
+                        </>
+                      ))}
+                    </div>
+                </div>
+                <div className={`${typeColors[pokemonType]} border-4 rounded-xl col-span-3 dark:text-gray-300 mb-7`}>
                     <h1 className="text-5xl m-4">Appears in:</h1>
                     <div className="flex flex-wrap gap-10 text-2xl p-7">
                         {pokemon.game_indices.map((game) => (
