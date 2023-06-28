@@ -1,7 +1,6 @@
 import { typeImages } from "../assets/images/types"
-import { Button } from "../components"
 
-export const Card = ({ isImage, isButton, content, pokemonType, pokemonImage, pokemonName }) => {
+export const Card = ({ isImage, content, pokemonType, pokemonImage, pokemonName }) => {
 
     const background = typeImages[pokemonType]
 

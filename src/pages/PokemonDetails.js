@@ -35,10 +35,10 @@ export const PokemonDetails = () => {
     
   return (
     <main>
-            <div className={`${typeColors[pokemonType]} border-4 my-14 pb-10 rounded-full`}>
-              <h1 className="text-7xl text-center mt-10 dark:text-gray-300">{pokemon.name.toUpperCase()}</h1>
-            </div>
             <div className="grid grid-cols-3 gap-7 min-h-screen">
+            <div className={`${typeColors[pokemonType]} border-4 py-3 rounded-full col-span-3`}>
+              <h1 className="text-7xl text-center dark:text-gray-300">{pokemon.name.toUpperCase()}</h1>
+            </div>
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300 flex flex-col items-center`}>
                     <h1 className="text-5xl">Abilities:</h1>
                     <div className="text-2xl">
@@ -72,9 +72,9 @@ export const PokemonDetails = () => {
                       </div>
                 </div>
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300`}>
-                      <div className="flex flex-col items-center text-2xl py-2">
+                      <div className="flex flex-col justify-around items-center text-2xl py-5">
                         <h1 className="text-5xl pb-7">Extra Info:</h1>
-                        <p>PokeDex ID: {pokemon.order}</p>
+                        <p className="py-3">PokeDex ID: {pokemon.order}</p>
                         <p>Base Experience: {pokemon.base_experience}</p>
                       </div>
                 </div>
