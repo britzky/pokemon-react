@@ -28,14 +28,16 @@ export const PokemonDetails = () => {
         statName: stat.stat.name,
     }));
     
+    let PokemonIcon = typeIcons[pokemonType]
+
   return (
     <main>
             <div className="grid grid-cols-3 gap-7 min-h-screen">
             <div className={`${typeColors[pokemonType]} border-4 py-3 rounded-full col-span-3`}>
               <div className="flex justify-around items-center">
-                {typeIcons[pokemonType]}
+                {PokemonIcon && <PokemonIcon />}
                 <h1 className="text-7xl text-center dark:text-gray-300">{pokemon.name.toUpperCase()}</h1>
-                {typeIcons[pokemonType]}
+                {PokemonIcon && <PokemonIcon />}
               </div>
             </div>
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300 flex flex-col items-center py-4`}>
@@ -83,12 +85,11 @@ export const PokemonDetails = () => {
                     <div className="grid grid-flow-row-dense grid-cols-5 gap-3 text-2xl p-7">
                       {moves.map((move, index) => {
                         let moveIcon = moveInfo[index].type.name;
+                        let MoveIcon = typeIcons[moveIcon]
                         return (
-                        <div key={index} className="flex items-center justify-between">
-                          <p>{move.move.name}</p>
-                        <div className=" flex">
-                          {typeIcons[moveIcon]}
-                        </div>
+                          <div key={index} className="flex items-center">
+                          {MoveIcon && <MoveIcon height='15' width='15' />}
+                          <p className="mx-3">{move.move.name}</p>
                         </div>
                         )
                         })}
