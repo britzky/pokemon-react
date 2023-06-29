@@ -12,7 +12,7 @@ import run from "../assets/icons/run.svg"
 export const PokemonDetails = () => {
     const { name: pokeName } = useParams();
 
-    const { loading, error, pokemonInfo: pokemon } = useFetchPokemon(pokeName);
+    const { loading, error, pokemonInfo: pokemon, moveInfo, moves } = useFetchPokemon(pokeName);
 
     if (loading) {
         return <main> Loading...</main>
@@ -22,17 +22,11 @@ export const PokemonDetails = () => {
     }
 
     let pokemonType = pokemon.types[0].type.name;
+    
     let pokemonStats = pokemon.stats.map((stat) => ({
         baseStat: stat.base_stat,
         statName: stat.stat.name,
     }));
-
-    const levelUpMoves = pokemon.moves.filter(move => {
-      return move.version_group_details.some(detail => {
-        return detail.move_learn_method.name === 'level-up'
-      });
-    });
-
     
   return (
     <main>
@@ -44,11 +38,11 @@ export const PokemonDetails = () => {
                 {typeIcons[pokemonType]}
               </div>
             </div>
-                <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300 flex flex-col items-center`}>
+                <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300 flex flex-col items-center py-4`}>
                     <h1 className="text-5xl">Abilities:</h1>
-                    <div className="text-2xl">
+                    <div className="text-2xl flex flex-col justify-between">
                       {pokemon.abilities.map((ability) => (
-                        <p className="py-7">{ability.ability.name}</p>
+                        <p className="py-3">{ability.ability.name}</p>
                       ))}
                     </div>
                 </div>
@@ -86,22 +80,26 @@ export const PokemonDetails = () => {
    
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl col-span-3 dark:text-gray-300`}>
                     <h1 className="text-5xl m-4">Moves Learned by Level-Up:</h1>
-                    <div className="text-2xl flex flex-wrap gap-10 p-7">
-                      {levelUpMoves.map((move, index) => (
-                        <>
-                        <p key={index}>{move.move.name}</p>
-                        <p>|</p>
-                        </>
-                      ))}
+                    <div className="grid grid-flow-row-dense grid-cols-5 gap-3 text-2xl p-7">
+                      {moves.map((move, index) => {
+                        let moveIcon = moveInfo[index].type.name;
+                        return (
+                        <div key={index} className="flex items-center justify-between">
+                          <p>{move.move.name}</p>
+                        <div className=" flex">
+                          {typeIcons[moveIcon]}
+                        </div>
+                        </div>
+                        )
+                        })}
                     </div>
                 </div>
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl col-span-3 dark:text-gray-300 mb-7`}>
                     <h1 className="text-5xl m-4">Appears in:</h1>
-                    <div className="flex flex-wrap gap-10 text-2xl p-7">
+                    <div className="grid grid-flow-row-dense grid-cols-5 gap-3 text-2xl p-7">
                         {pokemon.game_indices.map((game) => (
                           <>
                           <p>{game.version.name}</p>
-                          <p>|</p>
                           </>
                         ))}
                     </div>
