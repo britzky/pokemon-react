@@ -88,7 +88,7 @@ export const PokemonDetails = () => {
                         let MoveIcon = typeIcons[moveIcon]
                         return (
                           <div key={index} className="flex items-center">
-                          {MoveIcon && <MoveIcon height='15' width='15' />}
+                          {MoveIcon && <MoveIcon height='20' width='20' move='true' />}
                           <p className="mx-3">{move.move.name}</p>
                         </div>
                         )
