@@ -5,7 +5,7 @@ import { AllRoutes } from './routes/AllRoutes';
 function App() {
   
   return (
-    <div className="dark:bg-dark">
+    <div className="dark:bg-dark font-body">
       <Header />
       <AllRoutes />
       <Footer />

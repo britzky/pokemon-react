@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{html,js}"],
   darkMode: 'class',
   theme: {
+    fontFamily: {
+      'body': 'Play, sans-serif'
+    },
     extend: {},
   },
   plugins: [],
