@@ -1,14 +1,3 @@
-from flask import Flask
-from flask_cors import CORS
+from app import create_app
 
-api = Flask(__name__)
-CORS(api)
-
-@api.route('/profile')
-def my_profile():
-    response_body = {
-        "name": "John",
-        "about" : "Hello! I'm a fullstack developer that loves python and javascript!"
-    }
-
-    return response_body
+app = create_app
