@@ -1,2 +1,4 @@
 FLASK_APP=base.py
-FLASK_ENV=development 
+FLASK_ENV=development
+SECRET_KEY=1-800-mustardfuckinrox4ever0sdfbnon
+SQLALCHEMY_DATABASE_URI=postgresql://fxqpnico:vBw9uc24J2vDpu3VONfDfSe3JycRqSra@batyr.db.elephantsql.com/fxqpnico
