@@ -25,11 +25,6 @@ class User(db.model):
     def check_hash_password(self, login_password):
         return check_password_hash(self.password, login_password)
     
-    # register user attributes
-    def from_dict(self, data):
-        self.user_name = data['user_name']
-        self.email = data['email']
-        self.password = self.hash_password(data['password'])
 
     # update user attributes
     def update_profile(self, data):
