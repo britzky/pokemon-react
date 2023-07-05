@@ -1,4 +1,4 @@
-from user import User
-from pokemon import Pokemon
+from .user import User
+from .pokemon import Pokemon
 from app import db
 

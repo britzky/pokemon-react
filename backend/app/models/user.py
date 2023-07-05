@@ -1,21 +1,42 @@
 from app import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+import secrets
 
 team = db.Table('team',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
     db.Column('pokemon_id', db.Integer, db.ForeignKey('pokemon.id'))
 )
 
-class User(db.model):
+class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_name = db.Column(db.String, nulllable=False, unique=True)
+    user_name = db.Column(db.String, nullable=False, unique=True)
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
     created_on = db.Column(db.DateTime, default=datetime.utcnow())
     pokemon = db.relationship(
         'Pokemon', secondary=team, backref='trainers', lazy='dynamic'
     )
+    token = db.Column(db.String, unique=True)
+
+    #methods for token
+    def get_token(self):
+        #get user token
+        if self.token:
+            return self.token
+        
+        #if token doesn't exist
+        self.token = secrets.token_urlsafe(32)
+
+        self.save_to_db()
+        return self.token
+    
+    def check_token(token):
+        user = user.query.filter_by(token=token).first()
+        if not user:
+            return None
+        return user
+
 
     #hash the password
     def hash_password(self, original_password):

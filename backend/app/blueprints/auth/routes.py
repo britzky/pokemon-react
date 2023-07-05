@@ -7,18 +7,20 @@ from app.schemas.user_schema import UserSchema
 
 #Initialize User schema
 user_schema = UserSchema()
-
-@auth.route('/register', methods=['POST'])
-def register():
-    # get the json data from the request
+def get_validated_user_data():
     user_data = request.get_json()
 
     # validate and deserialize the input data
     try:
         validated_data = user_schema.load(user_data)
     except ValidationError as err:
-        return jsonify(err.messages), 400
-    # If validation was successful we can create the new user
+        return None, jsonify(err.messages), 400
+    return validated_data, None, None
+    
+
+
+@auth.route('/register', methods=['POST'])
+def register():
 
     new_user = User(
         user_name=validated_data["user_name"],
@@ -30,6 +32,9 @@ def register():
     new_user.save_to_db()
 
     return jsonify({"message": "User created successfully"}), 201
+
+
+
 
 
     

@@ -1,7 +1,7 @@
 from app import db 
-from user import team
+from .user import team
 
-class Pokemon(db.model):
+class Pokemon(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     ability = db.Column(db.JSON)
