@@ -2,6 +2,11 @@ from app import db
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
+team = db.Table('team',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('pokemon_id', db.Integer, db.ForeignKey('pokemon.id'))
+)
+
 class User(db.model):
     id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String, nulllable=False, unique=True)
