@@ -1,5 +1,7 @@
 export const Home = () => {
   return (
-    <main>Home</main>
+    <main>
+      Home
+    </main>
   )
 }

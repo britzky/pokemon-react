@@ -7,6 +7,7 @@ export const AllRoutes = () => {
         <Routes>
             <Route path="" element={<Home />} />
             <Route path="register" element={<Register />} />
+            <Route path="signin" element={<SignIn />} />
             <Route path="pokemon/:name" element={<PokemonDetails />} />  
             <Route path ="*" element={<PageNotFound />} />
         </Routes>
