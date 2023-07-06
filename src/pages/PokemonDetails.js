@@ -2,7 +2,7 @@ import { useFetchPokemon } from "../hooks/useFetchPokemon";
 import { typeColors } from "../config/typeColors";
 import { useParams } from "react-router-dom";
 
-import { Button, Card } from "../components";
+import { Button, ImageCard } from "../components";
 import { typeIcons } from "../components/icons";
 
 import pokeball from "../assets/icons/pokeball.svg"
@@ -62,7 +62,7 @@ export const PokemonDetails = () => {
                     </div>
                 </div>
                 <div className={`${typeColors[pokemonType]} col-start-3 row-span-2 border-4 rounded-xl dark:text-gray-300 flex flex-col justify-between pb-6`}> 
-                    <Card 
+                    <ImageCard 
                       isImage={true} 
                       pokemonImage={pokemon.sprites.front_default}
                       pokemonType={pokemonType}
