@@ -13,18 +13,13 @@ logger = logging.getLogger(__name__)
 #Initialize User schema
 user_schema = UserSchema()
 def get_validated_user_data():
-    print(f"Request data: {request.data}")
     user_data = request.get_json()
-    print(f"Parsed JSON: {user_data}")
 
     # validate and deserialize the input data
     try:
         validated_data = user_schema.load(user_data)
     except ValidationError as err:
-        print(f"Validation error: {err}")
-        print(f"Validation messages: {err.messages}")
         return None, jsonify(err.messages), 400
-    print(f"Validated data: {validated_data}")
     return validated_data, None, None
     
 
@@ -63,8 +58,8 @@ def register():
         return jsonify(response_data), 201
     except Exception as e:
         logger.error(f"Exception occurred: {e}")
-        print(f"Exception occured: {e}")
         return jsonify({"messgage": "An error occurred"}), 500
+
 
 
 
