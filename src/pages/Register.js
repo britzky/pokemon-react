@@ -42,7 +42,6 @@ export const Register = () => {
                       type="text" 
                       id="firstName" 
                       name="firstName" 
-                      className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                       placeholder="Santa" 
                       autoComplete="off"
                       {...register("first_name", {required: true})} 
@@ -54,7 +53,6 @@ export const Register = () => {
                       type="text" 
                       id="lastName" 
                       name="lastName" 
-                      className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                       placeholder="Claus" 
                       autoComplete="off"
                       {...register("last_name", {required: true})} 
@@ -67,7 +65,6 @@ export const Register = () => {
                     type="text" 
                     id="userName" 
                     name="userName" 
-                    className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                     placeholder="CookieLuver" 
                     autoComplete="off"
                     {...register("user_name", {required: true})} 
@@ -80,7 +77,6 @@ export const Register = () => {
                     type="email" 
                     id="email" 
                     name="email" 
-                    className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                     placeholder="example@gmail.com" 
                     autoComplete="off"
                     {...register("email", {required: true})} 
@@ -92,7 +88,6 @@ export const Register = () => {
                   type="password" 
                   id="password" 
                   name="password" 
-                  className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                   autoComplete="off"
                   {...register("password", {required: true, minLength: 8})} 
                 />
@@ -104,7 +99,6 @@ export const Register = () => {
                   type="password" 
                   id="confirmPassword" 
                   name="confirmPassword" 
-                  className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                   autoComplete="off"
                   {...register("confirmPassword", {required: true, validate: value => value === password || "The passwords do not match"})} 
                 />
