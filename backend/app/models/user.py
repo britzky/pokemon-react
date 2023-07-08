@@ -29,8 +29,6 @@ class User(db.Model):
         
         #if token doesn't exist
         self.token = secrets.token_urlsafe(32)
-
-        self.save_to_db()
         return self.token
     
     def check_token(token):
