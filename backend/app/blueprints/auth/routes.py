@@ -61,6 +61,41 @@ def register():
         return jsonify({"messgage": "An error occurred"}), 500
 
 
+@auth.route('/signin', methods=["POST"])
+def signin():
+    try:
+        user_data = request.get_json()
+
+        if not user_data:
+            return jsonify({"message": "Bad Request"}), 400
+        
+        user_name = user_data.get('user_name')
+        password = user_data.get('password')
+
+        #check if the user exists by either username or email
+        user = User.query.filter_by(user_name=user_name).first()
+
+        if not user:
+            return jsonify({"message": "Invalid username/email or password"})
+        
+        #check if users password is correct
+        if not user.check_hash_password(password):
+            return jsonify({"message": "Invalid username/email or password"})
+
+        user.token = user.get_token()
+        user.save_to_db()
+
+        return jsonify({
+            "message": "Logged in successfully",
+            "user_name": user.user_name,
+            "token": user.token
+        }), 200
+    except Exception as e:
+        logger.error(f"Excepon occured: {e}")
+        return jsonify({"message": "An error occured"}), 500
+
+
+
 
 
 
