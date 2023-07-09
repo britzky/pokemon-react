@@ -3,7 +3,7 @@ export const SignIn = () => {
     <main>
        <div className="min-h-screen flex flex-col items-center justify-center">
           <form>
-            <div className="border-2 flex flex-col items-center gap-5 p-7 rounded-lg dark:border-gray-600 text-gray-700 dark:text-white">
+            <div className="border-2 flex flex-col items-center gap-5 p-7 rounded-lg dark:border-gray-600 text-gray-700 dark:text-white bg-white dark:bg-gray-900 shadow-lg shadow-gray-400 dark:shadow-black dark:shadow-xl">
               <h1 className="text-2xl py-4">Login Now!</h1>
               <label htmlFor="user_name">
               User Name:
