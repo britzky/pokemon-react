@@ -75,6 +75,9 @@ export const Header = () => {
               <li>
                 <NavLink to="/register" className={({isActive}) => isActive ? activeClass : inActiveClass }>Register</NavLink>
               </li>
+              <li>
+                <NavLink to="/signin" className={({isActive}) => isActive ? activeClass : inActiveClass }>Login</NavLink>
+              </li>
             </ul>
           </div>
         </div>
