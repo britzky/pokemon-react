@@ -1,9 +1,11 @@
+import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form'
-import { useState } from 'react';
+import { AuthContext } from '../context/AuthContext'
 
 
 export const SignIn = () => {
   const { register, handleSubmit, formState: {errors}} = useForm();
+  const { authenticate, user} = useContext(AuthContext)
   const [message, setMessage] = useState(null)
 
   const onSubmit = async (data) => {
@@ -16,8 +18,11 @@ export const SignIn = () => {
       if (!response.ok) throw new Error('Failed to login');
   
       const responseData = await response.json();
+      console.log(responseData)
 
-      setMessage(`Welcome back, ${responseData.user_name}!`);
+      authenticate(responseData.token, responseData.user)
+
+      setMessage(`Welcome back, ${responseData.user.first_name}!`);
       setTimeout(() => setMessage(null), 45000);
     } catch (error) {
       console.error('An error occured while trying to send data to the server', error)
@@ -28,6 +33,11 @@ export const SignIn = () => {
   return (
     <main>
        <div className="min-h-screen flex flex-col items-center justify-center">
+        {user && 
+        <div>
+          <p>{user.first_name}</p>
+        </div>
+        }
         {message && 
           <div>  
             <p>{message}</p>

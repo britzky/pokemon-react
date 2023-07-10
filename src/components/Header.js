@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Logo from '../assets/images/logo.jpg'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
 export const Header = () => {
   const [hidden, setHidden] = useState(true);
   const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem("darkMode") || false));
   const navigate = useNavigate()
+  const { user, logout } = useContext(AuthContext)
 
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
@@ -72,12 +74,20 @@ export const Header = () => {
               <li>
                 <NavLink to="/" className={({isActive}) => isActive ? activeClass : inActiveClass } end>Home</NavLink>
               </li>
-              <li>
-                <NavLink to="/register" className={({isActive}) => isActive ? activeClass : inActiveClass }>Register</NavLink>
-              </li>
-              <li>
-                <NavLink to="/signin" className={({isActive}) => isActive ? activeClass : inActiveClass }>Login</NavLink>
-              </li>
+              {user ? (
+                <li>
+                  <NavLink to="/myteam" className={({isActive}) => isActive ? activeClass : inActiveClass }>{user.user_name}'s Team</NavLink>
+                </li>
+                ) : (
+                  <>
+                <li>
+                  <NavLink to="/register" className={({isActive}) => isActive ? activeClass : inActiveClass }>Register</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/signin" className={({isActive}) => isActive ? activeClass : inActiveClass }>Login</NavLink>
+                </li>
+                  </>
+              )}
             </ul>
           </div>
         </div>

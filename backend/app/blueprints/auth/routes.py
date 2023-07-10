@@ -87,8 +87,15 @@ def signin():
 
         return jsonify({
             "message": "Logged in successfully",
-            "user_name": user.user_name,
-            "token": user.token
+            "token": user.token,
+            "user": {
+                "id": user.id,
+                "user_name": user.user_name,
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+                "email": user.email,
+                "created_on": user.created_on
+            }
         }), 200
     except Exception as e:
         logger.error(f"Excepon occured: {e}")
