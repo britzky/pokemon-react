@@ -75,9 +75,17 @@ export const Header = () => {
                 <NavLink to="/" className={({isActive}) => isActive ? activeClass : inActiveClass } end>Home</NavLink>
               </li>
               {user ? (
+                <>
                 <li>
                   <NavLink to="/myteam" className={({isActive}) => isActive ? activeClass : inActiveClass }>{user.user_name}'s Team</NavLink>
                 </li>
+                <li>
+                  <NavLink to="/trainers" className={({isActive}) => isActive ? activeClass : inActiveClass}>Trainers</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/" onClick={logout} className={({isActive}) => isActive ? activeClass : inActiveClass}>Log out</NavLink>
+                </li>
+                </>
                 ) : (
                   <>
                 <li>

@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from marshmallow.exceptions import ValidationError
 from app.models import User
 from . import auth
@@ -7,8 +7,6 @@ from .auth import basic_auth, token_auth
 import logging
 
 logger = logging.getLogger(__name__)
-
-
 
 #Initialize User schema
 user_schema = UserSchema()
@@ -22,6 +20,21 @@ def get_validated_user_data():
         return None, jsonify(err.messages), 400
     return validated_data, None, None
     
+#Create httponly cookie for user
+def create_user_response(user, message, status_code):
+    response = make_response({
+        "message": message,
+        "user": {
+            "id": user.id,
+            "user_name": user.user_name,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "email": user.email,
+            "created_on": user.created_on
+        }
+    }, status_code)
+    response.set_cookie('token', user.token, httponly=True, secure=True, samesite="Strict")
+    return response
 
 
 @auth.route('/register', methods=['POST'])
@@ -47,15 +60,9 @@ def register():
         #Generate a token for the new user
         new_user.token = new_user.get_token()
 
-        response_data = {
-            "message": "User created successfully",
-            "user_name": new_user.user_name,
-            "token": new_user.token
-        }
-
         #Save the new use to the database
         new_user.save_to_db()
-        return jsonify(response_data), 201
+        return create_user_response(new_user, "Logged in sucessfully", 201)
     except Exception as e:
         logger.error(f"Exception occurred: {e}")
         return jsonify({"messgage": "An error occurred"}), 500
@@ -85,18 +92,7 @@ def signin():
         user.token = user.get_token()
         user.save_to_db()
 
-        return jsonify({
-            "message": "Logged in successfully",
-            "token": user.token,
-            "user": {
-                "id": user.id,
-                "user_name": user.user_name,
-                "first_name": user.first_name,
-                "last_name": user.last_name,
-                "email": user.email,
-                "created_on": user.created_on
-            }
-        }), 200
+        return create_user_response(user, "Logged in sucessfully", 200)
     except Exception as e:
         logger.error(f"Excepon occured: {e}")
         return jsonify({"message": "An error occured"}), 500
