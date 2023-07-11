@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, g
 from marshmallow.exceptions import ValidationError
 from app.models import User
 from . import auth
@@ -96,6 +96,16 @@ def signin():
     except Exception as e:
         logger.error(f"Excepon occured: {e}")
         return jsonify({"message": "An error occured"}), 500
+
+@auth.before_request
+def require_token():
+    if request.headers.get('Authorization') is None:
+        return jsonify({"message:" "Token is required"}), 401
+
+@auth.route('/verify')
+@token_auth.login_required
+def verify():
+    return jsonify({"message": "Token is valid", "user_id": g.current_user.id}), 200
 
 
 
