@@ -6,9 +6,10 @@ import { AuthContext } from '../context/AuthContext'
 export const Header = () => {
   const [hidden, setHidden] = useState(true);
   const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem("darkMode") || false));
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const navigate = useNavigate()
-  const { user, logout } = useContext(AuthContext)
+  const { auth } = useContext(AuthContext)
+  const { loading, authenticate, logout, user } = auth;
+
 
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
@@ -20,10 +21,7 @@ export const Header = () => {
     }
   }, [darkMode])
 
-  useEffect(() => {
-    console.log(user)
-    setIsLoggedIn(!!(user && user.token))
-  }, [user])
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -80,7 +78,7 @@ export const Header = () => {
               <li>
                 <NavLink to="/" className={({isActive}) => isActive ? activeClass : inActiveClass } end>Home</NavLink>
               </li>
-              {isLoggedIn ? (
+              {user ? (
                 <>
                 <li>
                   <NavLink to="/myteam" className={({isActive}) => isActive ? activeClass : inActiveClass }>{user.user_name}'s Team</NavLink>

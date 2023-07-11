@@ -5,7 +5,8 @@ import { AuthContext } from '../context/AuthContext'
 
 export const SignIn = () => {
   const { register, handleSubmit, formState: {errors}} = useForm();
-  const { authenticate, user} = useContext(AuthContext)
+  const { auth } = useContext(AuthContext)
+  const { authenticate, user} = auth
   const [message, setMessage] = useState(null)
 
   const onSubmit = async (data) => {

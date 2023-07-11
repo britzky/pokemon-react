@@ -99,8 +99,10 @@ def signin():
 
 @auth.before_request
 def require_token():
+    if request.path in ['/signin', '/register']:
+        return None
     if request.headers.get('Authorization') is None:
-        return jsonify({"message:" "Token is required"}), 401
+        return jsonify({"message": "Token is required"}), 401
 
 @auth.route('/verify')
 @token_auth.login_required
