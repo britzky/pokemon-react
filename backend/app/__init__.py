@@ -15,8 +15,10 @@ def create_app():
     migrate.init_app(app, db)
 
     from app.blueprints.auth import auth
+    from app.blueprints.main import main
 
     app.register_blueprint(auth)
+    app.register_blueprint(main)
 
 
     return app
