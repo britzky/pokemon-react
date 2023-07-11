@@ -8,7 +8,7 @@ export const Header = () => {
   const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem("darkMode") || false));
   const navigate = useNavigate()
   const { auth } = useContext(AuthContext)
-  const { loading, authenticate, logout, user } = auth;
+  const { logout, user } = auth;
 
 
   useEffect(() => {
