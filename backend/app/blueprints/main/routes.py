@@ -1,6 +1,7 @@
-from flask import request, jsonify
+from flask import request, jsonify, g
 from app.models import Pokemon, User
 from app.models.user import team
+from marshmallow.exceptions import ValidationError
 from app.schemas.pokemon_schema import PokemonSchema
 from . import main
 from ..auth.auth import token_auth
@@ -14,8 +15,8 @@ def get_user_pokemon_data():
     try:
         pokemon_data = pokemon_schema.load(user_pokemon_data)
         return pokemon_data
-    except ValueError as err:
-        raise ValueError(err.messages)
+    except ValidationError as err:
+        raise ValidationError(err.messages)
 
 def create_pokemon_response(pokemon, message, status_code):
     response = {
@@ -68,6 +69,31 @@ def pokemon():
         )
 
         new_pokemon.save_to_db()
+        return create_pokemon_response(new_pokemon, "Pokemon successfully created", 201)
     except Exception as e:
         logger.error(f"Exception occured: {e}")
         return jsonify({"message": "An error occured"}), 500
+    
+@main.route('/catch/<pokemon>')
+@token_auth.login_required
+def catch(pokemon):
+    name = Pokemon.query.filter_by(name=pokemon).first()
+
+    if name is None:
+        return jsonify({"message": f"{pokemon.title()} doesn' exist", "status": "error"}), 404
+    
+    if g.current_user.check_team(name):
+        return jsonify({"message": f"You already have {pokemon.title()}", "status": "danger"}), 400
+    elif g.current_user.max_pokemon():
+        return jsonify({"message": "Your team is already full!", "status": "danger"}), 400
+    else:
+        try:
+            g.current_user.catch(name)
+            return jsonify({"message": f"You successfully caught {pokemon.title()}"}), 200
+        except Exception as e:
+            logger.error(f"Exception occured: {e}")
+            return jsonify({"message": "An error occured"}), 500
+    
+
+
+             
