@@ -24,6 +24,7 @@ export const useFetchPokemon = (pokeName) => {
                     navigate('/*')
                 }
                 const data = await response.json();
+                console.log( "pokemon info:", data)
                 setPokemonInfo(data);
                 setError(null);
 

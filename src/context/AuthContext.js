@@ -13,9 +13,6 @@ const useAuth = () => {
                 const response = await fetch('/verify', {
                     method: 'GET',
                     credentials: 'include',
-                    headers: {
-                        'Authorization': `Bearer ${user.token}`
-                    }
                 })
                 if (!response.ok) throw new Error('Not authenticated')
                 
@@ -36,7 +33,11 @@ const useAuth = () => {
     };
 
     //method to clear the auth info when the user logs out
-    const logout = () => {
+    const logout = async () => {
+        const response = await fetch('/logout', {
+            method: "POST",
+            credentials: 'include'
+        })
         setUser(null)
     };
     return { loading, authenticate, logout, user }

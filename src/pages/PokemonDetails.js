@@ -1,6 +1,9 @@
+import { useContext } from "react";
 import { useFetchPokemon } from "../hooks/useFetchPokemon";
 import { typeColors } from "../config/typeColors";
-import { useParams } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { useParams, useNavigate } from "react-router-dom";
+
 
 import { Button, ImageCard } from "../components";
 import { typeIcons } from "../components/icons";
@@ -11,8 +14,13 @@ import run from "../assets/icons/run.svg"
 
 export const PokemonDetails = () => {
     const { name: pokeName } = useParams();
+    const navigate = useNavigate();
 
     const { loading, error, pokemonInfo: pokemon, moveInfo, moves } = useFetchPokemon(pokeName);
+    const { auth } = useContext(AuthContext);
+    console.log(auth)
+    const { user } = auth
+    console.log(user)
 
     if (loading) {
         return <main> Loading...</main>
@@ -29,6 +37,45 @@ export const PokemonDetails = () => {
     }));
     
     let PokemonIcon = typeIcons[pokemonType]
+
+    
+    const catchPokemon = async (pokemon) => {
+      console.log("catchPokemon function called", pokemon)
+      
+      let pokemon_data = {
+        pokedex_id: pokemon.id,
+        name: pokemon.name,
+        ability: JSON.stringify(pokemon.abilities),
+        base_experience: pokemon.base_experience,
+        hp_stat: pokemon.stats.find(stat => stat.stat.name === 'hp'),
+        attack_stat: pokemon.stats.find(stat => stat.stat.name === 'attack'),
+        defense_stat: pokemon.stats.find(stat => stat.stat.name === 'defense'),
+        special_attack_stat: pokemon.stats.find(stat => stat.stat.name === 'special-attack'),
+        special_defense_stat: pokemon.stats.find(stat => stat.stat.name ==='special-defense'),
+        speed_stat: pokemon.stats.find(stat => stat.stat.name === 'speed'),
+        pokemon_sprite: pokemon.sprites.front_default,
+        pokemon_type: JSON.stringify(pokemon.types)
+      }
+      
+      if (!user){
+        navigate('/register')
+      }
+      try {
+        const response = await fetch('/catch', {
+          method: 'POST',
+          headers: { 'Content-type': 'application/json'},
+          body: JSON.stringify(pokemon_data),
+          credentials: 'include',
+        })
+        if (!response.ok) throw new Error('Failed to login');
+
+        const responseData = await response.json();
+        console.log(responseData)
+      } catch(error){
+        console.error('failed to fetch data', error)
+      }
+    
+    }
 
   return (
     <main>
@@ -68,7 +115,7 @@ export const PokemonDetails = () => {
                       pokemonType={pokemonType}
                     />                 
                       <div className="flex justify-around items-center mt-2">
-                        <Button image={pokeball}>Catch</Button>
+                        <Button image={pokeball} onClick={() => catchPokemon(pokemon)}>Catch</Button>
                         <Button image={run}>Run</Button>
                       </div>
                 </div>
