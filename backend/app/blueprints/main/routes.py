@@ -14,9 +14,9 @@ def get_user_pokemon_data():
     user_pokemon_data = request.get_json()
     try:
         pokemon_data = pokemon_schema.load(user_pokemon_data)
-        return pokemon_data
+        return pokemon_data, None
     except ValidationError as err:
-        raise ValidationError(err.messages)
+        return None, err.messages
 
 def create_pokemon_response(pokemon, message, status_code):
     response = {
@@ -40,59 +40,51 @@ def create_pokemon_response(pokemon, message, status_code):
     return jsonify(response), status_code
 
 
-@main.route('/pokemon', methods=['GET', 'POST'])
+@main.route('/catch', methods=['POST'])
 @token_auth.login_required
-def pokemon():
+def catch():
+    print(request.json)
     try:
-        pokemon_data, errors, error_code = get_user_pokemon_data()
+        pokemon_data, errors = get_user_pokemon_data()
 
         if errors is not None:
-            return errors, error_code
+            return jsonify(errors), 400
         
         if pokemon_data is None:
             logger.error("Data validation failed")
             return jsonify({"message": "Pokemon failed"}), 400
         
-        new_pokemon = Pokemon(
-            name=pokemon_data["name"],
-            ability=pokemon_data["ability"],
-            base_experience=pokemon_data["base_experience"],
-            pokedex_id=pokemon_data["pokedex_id"],
-            hp_stat=pokemon_data["hp_stat"],
-            attack_stat=pokemon_data["attack_stat"],
-            defense_stat=pokemon_data["defense_stat"],
-            special_attack_stat=pokemon_data["special_attack_stat"],
-            special_defense_Stat=pokemon_data["special_defense_stat"],
-            speed_stat=pokemon_data["speed_stat"],
-            pokemon_sprite=pokemon_data["pokemon_sprite"],
-            pokemon_type=pokemon_data["pokemon_type"],
-        )
+        name = pokemon_data['name']
+        existing_pokemon = Pokemon.query.filter_by(name=name).first()
 
-        new_pokemon.save_to_db()
-        return create_pokemon_response(new_pokemon, "Pokemon successfully created", 201)
+        if existing_pokemon is not None and g.current_user.check_team(existing_pokemon):
+            return jsonify({"message": f"You already have a {name.title()}", "status": "danger"}), 400
+        elif g.current_user.max_pokemon():
+            return jsonify({"message": "Your team is already full!", "status": "danger"}), 400
+        else:
+            if existing_pokemon is None:
+                try:
+                    new_pokemon = Pokemon(
+                        name=pokemon_data["name"],
+                        ability=pokemon_data["ability"],
+                        base_experience=pokemon_data["base_experience"],
+                        pokedex_id=pokemon_data["pokedex_id"],
+                        hp_stat=pokemon_data["hp_stat"],
+                        attack_stat=pokemon_data["attack_stat"],
+                        defense_stat=pokemon_data["defense_stat"],
+                        special_attack_stat=pokemon_data["special_attack_stat"],
+                        special_defense_Stat=pokemon_data["special_defense_stat"],
+                        speed_stat=pokemon_data["speed_stat"],
+                        pokemon_sprite=pokemon_data["pokemon_sprite"],
+                        pokemon_type=pokemon_data["pokemon_type"],
+                    )
+                    new_pokemon.save_to_db()
+                except Exception as e:
+                    logger.error(f"Exception occured: {e}")
+                    return jsonify({"message": "An error occured"}), 500
     except Exception as e:
         logger.error(f"Exception occured: {e}")
         return jsonify({"message": "An error occured"}), 500
-    
-@main.route('/catch/<pokemon>')
-@token_auth.login_required
-def catch(pokemon):
-    name = Pokemon.query.filter_by(name=pokemon).first()
-
-    if name is None:
-        return jsonify({"message": f"{pokemon.title()} doesn' exist", "status": "error"}), 404
-    
-    if g.current_user.check_team(name):
-        return jsonify({"message": f"You already have {pokemon.title()}", "status": "danger"}), 400
-    elif g.current_user.max_pokemon():
-        return jsonify({"message": "Your team is already full!", "status": "danger"}), 400
-    else:
-        try:
-            g.current_user.catch(name)
-            return jsonify({"message": f"You successfully caught {pokemon.title()}"}), 200
-        except Exception as e:
-            logger.error(f"Exception occured: {e}")
-            return jsonify({"message": "An error occured"}), 500
     
 
 

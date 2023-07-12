@@ -32,7 +32,7 @@ class User(db.Model):
         return self.token
     
     def check_token(token):
-        user = user.query.filter_by(token=token).first()
+        user = User.query.filter_by(token=token).first()
         if not user:
             return None
         return user

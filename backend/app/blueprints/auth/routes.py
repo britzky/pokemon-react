@@ -4,6 +4,7 @@ from app.models import User
 from . import auth
 from app.schemas.user_schema import UserSchema
 from .auth import basic_auth, token_auth
+from functools import wraps
 import logging
 
 logger = logging.getLogger(__name__)
@@ -35,6 +36,16 @@ def create_user_response(user, message, status_code):
     }, status_code)
     response.set_cookie('token', user.token, httponly=True, secure=True, samesite="Strict")
     return response
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if g.current_user is None:
+            return jsonify({"message": "Token is required"})
+        return f(*args, **kwargs)
+    return decorated_function
+
+token_auth.login_required = login_required
 
 
 @auth.route('/register', methods=['POST'])
@@ -97,17 +108,18 @@ def signin():
         logger.error(f"Excepon occured: {e}")
         return jsonify({"message": "An error occured"}), 500
 
-@auth.before_request
-def require_token():
-    if request.path in ['/signin', '/register']:
-        return None
-    if request.headers.get('Authorization') is None:
-        return jsonify({"message": "Token is required"}), 401
 
 @auth.route('/verify')
 @token_auth.login_required
 def verify():
     return jsonify({"message": "Token is valid", "user_id": g.current_user.id}), 200
+
+@auth.route('/logout', methods=["POST"])
+@token_auth.login_required
+def logout():
+    response = make_response("Logout")
+    response.set_cookie('token', expires=0)
+    return response
 
 
 
