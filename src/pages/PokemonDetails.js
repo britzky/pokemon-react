@@ -3,6 +3,7 @@ import { useFetchPokemon } from "../hooks/useFetchPokemon";
 import { typeColors } from "../config/typeColors";
 import { AuthContext } from "../context/AuthContext";
 import { useParams, useNavigate } from "react-router-dom";
+import usePokemonPreprocess from "../hooks/usePokemonPreprocess";
 
 
 import { Button, ImageCard } from "../components";
@@ -15,6 +16,7 @@ import run from "../assets/icons/run.svg"
 export const PokemonDetails = () => {
     const { name: pokeName } = useParams();
     const navigate = useNavigate();
+    const preprocessPokemon = usePokemonPreprocess();
 
     const { loading, error, pokemonInfo: pokemon, moveInfo, moves } = useFetchPokemon(pokeName);
     const { auth } = useContext(AuthContext);
@@ -42,20 +44,7 @@ export const PokemonDetails = () => {
     const catchPokemon = async (pokemon) => {
       console.log("catchPokemon function called", pokemon)
       
-      let pokemon_data = {
-        pokedex_id: pokemon.id,
-        name: pokemon.name,
-        ability: JSON.stringify(pokemon.abilities),
-        base_experience: pokemon.base_experience,
-        hp_stat: pokemon.stats.find(stat => stat.stat.name === 'hp'),
-        attack_stat: pokemon.stats.find(stat => stat.stat.name === 'attack'),
-        defense_stat: pokemon.stats.find(stat => stat.stat.name === 'defense'),
-        special_attack_stat: pokemon.stats.find(stat => stat.stat.name === 'special-attack'),
-        special_defense_stat: pokemon.stats.find(stat => stat.stat.name ==='special-defense'),
-        speed_stat: pokemon.stats.find(stat => stat.stat.name === 'speed'),
-        pokemon_sprite: pokemon.sprites.front_default,
-        pokemon_type: JSON.stringify(pokemon.types)
-      }
+      const processPokemon = preprocessPokemon(pokemon)
       
       if (!user){
         navigate('/register')
@@ -64,7 +53,7 @@ export const PokemonDetails = () => {
         const response = await fetch('/catch', {
           method: 'POST',
           headers: { 'Content-type': 'application/json'},
-          body: JSON.stringify(pokemon_data),
+          body: JSON.stringify(processPokemon),
           credentials: 'include',
         })
         if (!response.ok) throw new Error('Failed to login');

@@ -21,26 +21,4 @@ class Pokemon(db.Model):
         db.session.add(self)
         db.session.commit()
 
-    #catch pokemon
-    def catch(self, pokemon):
-        self.pokemon.append(pokemon)
-        db.session.commit()
-    
-    #release pokemon
-    def release(self, pokemon):
-        db.session.delete(pokemon)
-        db.session.commit()
-    
-    #check team
-    def check_team(self, pokemon):
-        if pokemon in self.pokemon:
-            return True
-        else:
-            return False
-    
-    #How many pokemon a user can have
-    def max_pokemon(self):
-        if len(self.pokemon.all()) >= 6:
-            return True
-        else:
-            return False
+

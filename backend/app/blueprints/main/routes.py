@@ -11,11 +11,17 @@ logger = logging.getLogger(__name__)
 
 pokemon_schema = PokemonSchema()
 def get_user_pokemon_data():
-    user_pokemon_data = request.get_json()
+    try:
+        user_pokemon_data = request.get_json()
+        print(f"Recieved data: {user_pokemon_data}")
+    except Exception as e:
+        print(f"Error getting JSON from request: {e}")
+        return None, {"message": "Error getting JSON from request"}
     try:
         pokemon_data = pokemon_schema.load(user_pokemon_data)
         return pokemon_data, None
     except ValidationError as err:
+        print(f"ValidationError: {err.messages}")
         return None, err.messages
 
 def create_pokemon_response(pokemon, message, status_code):
@@ -46,6 +52,7 @@ def catch():
     print(request.json)
     try:
         pokemon_data, errors = get_user_pokemon_data()
+        print(f"Pokemon Data: {pokemon_data}, Errors: {errors}")
 
         if errors is not None:
             return jsonify(errors), 400
@@ -73,15 +80,19 @@ def catch():
                         attack_stat=pokemon_data["attack_stat"],
                         defense_stat=pokemon_data["defense_stat"],
                         special_attack_stat=pokemon_data["special_attack_stat"],
-                        special_defense_Stat=pokemon_data["special_defense_stat"],
+                        special_defense_stat=pokemon_data["special_defense_stat"],
                         speed_stat=pokemon_data["speed_stat"],
                         pokemon_sprite=pokemon_data["pokemon_sprite"],
                         pokemon_type=pokemon_data["pokemon_type"],
                     )
                     new_pokemon.save_to_db()
+                    g.current_user.catch(new_pokemon)
+                    return jsonify({"message": f"You have caught a {name.title()}"})
                 except Exception as e:
                     logger.error(f"Exception occured: {e}")
                     return jsonify({"message": "An error occured"}), 500
+            else:
+                return jsonify({"message": f"You already have a {name}"}), 200
     except Exception as e:
         logger.error(f"Exception occured: {e}")
         return jsonify({"message": "An error occured"}), 500

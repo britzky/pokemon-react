@@ -13,5 +13,5 @@ class PokemonSchema(Schema):
     special_defense_stat = fields.Int(required=True)
     speed_stat = fields.Int(required=True)
     pokemon_sprite = fields.Str(required=True)
-    pokemon_type = fields.Str(required=True)
+    pokemon_type = fields.List(fields.Str(), required=True)
     
