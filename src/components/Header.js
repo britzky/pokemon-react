@@ -25,7 +25,7 @@ export const Header = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const queryTerm = event.target.search.value;
+    const queryTerm = event.target.search.value.toLowerCase();
     event.target.reset();
 
     return navigate(`/pokemon/${queryTerm}`);
