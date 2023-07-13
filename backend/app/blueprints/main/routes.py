@@ -13,9 +13,7 @@ pokemon_schema = PokemonSchema()
 def get_user_pokemon_data():
     try:
         user_pokemon_data = request.get_json()
-        print(f"Recieved data: {user_pokemon_data}")
     except Exception as e:
-        print(f"Error getting JSON from request: {e}")
         return None, {"message": "Error getting JSON from request"}
     try:
         pokemon_data = pokemon_schema.load(user_pokemon_data)
@@ -49,10 +47,8 @@ def create_pokemon_response(pokemon, message, status_code):
 @main.route('/catch', methods=['POST'])
 @token_auth.login_required
 def catch():
-    print(request.json)
     try:
         pokemon_data, errors = get_user_pokemon_data()
-        print(f"Pokemon Data: {pokemon_data}, Errors: {errors}")
 
         if errors is not None:
             return jsonify(errors), 400
@@ -85,8 +81,10 @@ def catch():
                         pokemon_sprite=pokemon_data["pokemon_sprite"],
                         pokemon_type=pokemon_data["pokemon_type"],
                     )
+                    print(f"New Pokemon: {new_pokemon}")
                     new_pokemon.save_to_db()
                     g.current_user.catch(new_pokemon)
+                    print(f"Current user after catching Pokemon: {g.current_user}")
                     return jsonify({"message": f"You have caught a {name.title()}"})
                 except Exception as e:
                     logger.error(f"Exception occured: {e}")
