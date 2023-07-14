@@ -8,8 +8,7 @@ const useAuth = () => {
 
     useEffect(() => {
         const verifyUser = async () =>{
-            if (!user || !user.token) return;
-                try {
+            try {
                 const response = await fetch('/verify', {
                     method: 'GET',
                     credentials: 'include',
@@ -21,10 +20,12 @@ const useAuth = () => {
                 setLoading(false)
             } catch(error) {
                 console.error('Error authenticating user', error)
+            } finally {
+                setLoading(false)
             }
         }
         verifyUser()
-    }, [user])
+    }, [])
 
     //method to authenticate and store token and user info
     const authenticate = (token, userData) => {
@@ -34,7 +35,7 @@ const useAuth = () => {
 
     //method to clear the auth info when the user logs out
     const logout = async () => {
-        const response = await fetch('/logout', {
+        await fetch('/logout', {
             method: "POST",
             credentials: 'include'
         })

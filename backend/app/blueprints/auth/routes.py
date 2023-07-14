@@ -41,7 +41,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if g.current_user is None:
-            return jsonify({"message": "Token is required"})
+            return jsonify({"message": "Token is required"}), 401
         return f(*args, **kwargs)
     return decorated_function
 
@@ -117,6 +117,7 @@ def verify():
 @auth.route('/logout', methods=["POST"])
 @token_auth.login_required
 def logout():
+    g.current_user.delete_token()
     response = make_response("Logout")
     response.set_cookie('token', expires=0)
     return response

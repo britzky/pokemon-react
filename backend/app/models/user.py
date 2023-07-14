@@ -37,6 +37,10 @@ class User(db.Model):
             return None
         return user
 
+    def delete_token(self):
+        self.token = None
+        db.session.commit()
+
 
     #hash the password
     def hash_password(self, original_password):
