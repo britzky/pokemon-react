@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import { useParams, useNavigate } from "react-router-dom";
 import usePokemonPreprocess from "../hooks/usePokemonPreprocess";
 
-import { Button, ImageCard } from "../components";
+import { Button, ImageCard, Alerts } from "../components";
 import { typeIcons } from "../components/icons";
 
 import pokeball from "../assets/icons/pokeball.svg"
@@ -21,7 +21,6 @@ export const PokemonDetails = () => {
 
     const { loading, error, pokemonInfo: pokemon, moveInfo, moves } = useFetchPokemon(pokeName);
     const { auth } = useContext(AuthContext);
-    const { user } = auth
 
     if (loading) {
         return <main> Loading...</main>
@@ -44,7 +43,7 @@ export const PokemonDetails = () => {
       
       const processPokemon = preprocessPokemon(pokemon)
       
-      if (!user){
+      if (!auth.user){
         navigate('/signin')
       }
       try {
@@ -57,7 +56,9 @@ export const PokemonDetails = () => {
         if (!response.ok) throw new Error('Failed to login');
 
         const responseData = await response.json();
+        console.log(responseData)
         setMessage(responseData.message)
+        setStatus(responseData.status)
       } catch(error){
         console.error('failed to fetch data', error)
       }
@@ -66,6 +67,7 @@ export const PokemonDetails = () => {
 
   return (
     <main>
+      <Alerts message={message} status={status} />
             <div className="grid grid-cols-3 gap-7 min-h-screen">
             <div className={`${typeColors[pokemonType]} border-4 py-3 rounded-full col-span-3`}>
               <div className="flex justify-around items-center">
