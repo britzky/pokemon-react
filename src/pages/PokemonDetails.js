@@ -53,12 +53,19 @@ export const PokemonDetails = () => {
           body: JSON.stringify(processPokemon),
           credentials: 'include',
         })
-        if (!response.ok) throw new Error('Failed to login');
+        if (!response.ok) {
+          const responseData = await response.json()
+          setStatus(responseData.status)
+          setMessage(responseData.message)
+          setTimeout(() => setMessage(null), 3000)
 
+
+          throw new Error(responseData.message);
+        }
         const responseData = await response.json();
-        console.log(responseData)
-        setMessage(responseData.message)
         setStatus(responseData.status)
+        setMessage(responseData.message)
+        setTimeout(() => setMessage(null), 3000)
       } catch(error){
         console.error('failed to fetch data', error)
       }
@@ -67,7 +74,7 @@ export const PokemonDetails = () => {
 
   return (
     <main>
-      <Alerts message={message} status={status} />
+    { message && <Alerts message={message} status={status} /> }
             <div className="grid grid-cols-3 gap-7 min-h-screen">
             <div className={`${typeColors[pokemonType]} border-4 py-3 rounded-full col-span-3`}>
               <div className="flex justify-around items-center">
