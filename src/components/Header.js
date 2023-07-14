@@ -8,7 +8,6 @@ export const Header = () => {
   const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem("darkMode") || false));
   const navigate = useNavigate()
   const { auth } = useContext(AuthContext)
-  const { logout, user } = auth;
 
 
   useEffect(() => {
@@ -89,7 +88,7 @@ export const Header = () => {
                   <NavLink to="/trainers" className={({isActive}) => isActive ? activeClass : inActiveClass}>Trainers</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/" onClick={logout} className={({isActive}) => isActive ? activeClass : inActiveClass}>Log out</NavLink>
+                  <NavLink to="/" onClick={auth.logout} className={({isActive}) => isActive ? activeClass : inActiveClass}>Log out</NavLink>
                 </li>
                 </>
                 ) : (
