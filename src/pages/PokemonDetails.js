@@ -15,7 +15,6 @@ import run from "../assets/icons/run.svg"
 export const PokemonDetails = () => {
     const [message, setMessage] = useState("");
     const [status, setStatus] = useState("");
-    
     const { name: pokeName } = useParams();
     const navigate = useNavigate();
     const preprocessPokemon = usePokemonPreprocess();

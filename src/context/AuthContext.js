@@ -31,6 +31,9 @@ const useAuth = () => {
     const authenticate = (token, userData) => {
         console.log('Authenticating with: ', token, userData)
         setUser({token, ...userData})
+
+        //add username to local storage
+        localStorage.setItem('username', userData.user_name)
     };
 
     //method to clear the auth info when the user logs out
@@ -40,6 +43,9 @@ const useAuth = () => {
             credentials: 'include'
         })
         setUser(null)
+
+        //remove username from local storage
+        localStorage.removeItem('username');
     };
     return { loading, authenticate, logout, user }
 }
