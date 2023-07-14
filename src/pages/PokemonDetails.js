@@ -1,10 +1,9 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useFetchPokemon } from "../hooks/useFetchPokemon";
 import { typeColors } from "../config/typeColors";
 import { AuthContext } from "../context/AuthContext";
 import { useParams, useNavigate } from "react-router-dom";
 import usePokemonPreprocess from "../hooks/usePokemonPreprocess";
-
 
 import { Button, ImageCard } from "../components";
 import { typeIcons } from "../components/icons";
@@ -14,15 +13,16 @@ import run from "../assets/icons/run.svg"
 
 
 export const PokemonDetails = () => {
+    const [message, setMessage] = useState("");
+    const [status, setStatus] = useState("");
+    
     const { name: pokeName } = useParams();
     const navigate = useNavigate();
     const preprocessPokemon = usePokemonPreprocess();
 
     const { loading, error, pokemonInfo: pokemon, moveInfo, moves } = useFetchPokemon(pokeName);
     const { auth } = useContext(AuthContext);
-    console.log(auth)
     const { user } = auth
-    console.log(user)
 
     if (loading) {
         return <main> Loading...</main>
@@ -40,14 +40,13 @@ export const PokemonDetails = () => {
     
     let PokemonIcon = typeIcons[pokemonType]
 
-    
     const catchPokemon = async (pokemon) => {
       console.log("catchPokemon function called", pokemon)
       
       const processPokemon = preprocessPokemon(pokemon)
       
       if (!user){
-        navigate('/register')
+        navigate('/signin')
       }
       try {
         const response = await fetch('/catch', {
@@ -59,7 +58,7 @@ export const PokemonDetails = () => {
         if (!response.ok) throw new Error('Failed to login');
 
         const responseData = await response.json();
-        console.log(responseData)
+        setMessage(responseData.message)
       } catch(error){
         console.error('failed to fetch data', error)
       }

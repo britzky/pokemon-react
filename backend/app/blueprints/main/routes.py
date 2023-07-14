@@ -61,7 +61,7 @@ def catch():
         existing_pokemon = Pokemon.query.filter_by(name=name).first()
 
         if existing_pokemon is not None and g.current_user.check_team(existing_pokemon):
-            return jsonify({"message": f"You already have a {name.title()}", "status": "danger"}), 400
+            return jsonify({"message": f"You already have a {name.title()}", "status": "warning"}), 400
         elif g.current_user.max_pokemon():
             return jsonify({"message": "Your team is already full!", "status": "danger"}), 400
         else:
@@ -81,16 +81,14 @@ def catch():
                         pokemon_sprite=pokemon_data["pokemon_sprite"],
                         pokemon_type=pokemon_data["pokemon_type"],
                     )
-                    print(f"New Pokemon: {new_pokemon}")
                     new_pokemon.save_to_db()
                     g.current_user.catch(new_pokemon)
-                    print(f"Current user after catching Pokemon: {g.current_user}")
-                    return jsonify({"message": f"You have caught a {name.title()}"})
+                    return jsonify({"message": f"You have caught a {name.title()}", "status": "success"})
                 except Exception as e:
                     logger.error(f"Exception occured: {e}")
-                    return jsonify({"message": "An error occured"}), 500
+                    return jsonify({"message": "An error occured", "status": "danger"}), 500
             else:
-                return jsonify({"message": f"You already have a {name}"}), 200
+                return jsonify({"message": f"You already have a {name}", "status": "warning"}), 200
     except Exception as e:
         logger.error(f"Exception occured: {e}")
         return jsonify({"message": "An error occured"}), 500
