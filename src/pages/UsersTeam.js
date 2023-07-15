@@ -45,7 +45,7 @@ export const UsersTeam = () => {
             <h1 className="font-bold text-3xl">{localUser}'s Team</h1>
             <div>
             {userPokemon && userPokemon.map((pokemon) => (
-              <div className="py-7">
+              <div key={pokemon.id} className="py-7">
                 <PokemonCard pokemon={pokemon} />
               </div>
               ))}
