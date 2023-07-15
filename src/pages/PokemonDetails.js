@@ -44,7 +44,8 @@ export const PokemonDetails = () => {
       const processPokemon = preprocessPokemon(pokemon)
       
       if (!auth.user){
-        navigate('/signin')
+        navigate('/signin');
+        return;
       }
       try {
         const response = await fetch('/catch', {
@@ -58,8 +59,6 @@ export const PokemonDetails = () => {
           setStatus(responseData.status)
           setMessage(responseData.message)
           setTimeout(() => setMessage(null), 3000)
-
-
           throw new Error(responseData.message);
         }
         const responseData = await response.json();

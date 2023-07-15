@@ -14,7 +14,7 @@ class Pokemon(db.Model):
     special_defense_stat = db.Column(db.Integer)
     speed_stat = db.Column(db.Integer)
     pokemon_sprite = db.Column(db.String)
-    pokemon_type = db.Column(db.String)
+    pokemon_type = db.Column(db.JSON)
 
 
     def save_to_db(self):
