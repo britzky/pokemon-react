@@ -22,10 +22,8 @@ def get_user_pokemon_data():
         print(f"ValidationError: {err.messages}")
         return None, err.messages
 
-def create_pokemon_response(pokemon, message, status_code):
-    response = {
-        "message": message,
-        "pokemon": {
+def create_pokemon_dict(pokemon):
+        pokemon_dict = {
             "id": pokemon.id,
             "name": pokemon.name,
             "ability": pokemon.ability,
@@ -39,9 +37,8 @@ def create_pokemon_response(pokemon, message, status_code):
             "speed_stat": pokemon.speed_stat,
             "pokemon_sprite": pokemon.pokemon_sprite,
             "pokemon_type": pokemon.pokemon_type
-        },
-    }
-    return jsonify(response), status_code
+        }
+        return pokemon_dict
 
 
 @main.route('/catch', methods=['POST'])
@@ -92,6 +89,21 @@ def catch():
     except Exception as e:
         logger.error(f"Exception occured: {e}")
         return jsonify({"message": "An error occured"}), 500
+    
+@main.route('/team')
+@token_auth.login_required
+def team():
+        try:
+            user_pokemon = g.current_user.pokemon.all()
+            response = []
+            for pokemon in user_pokemon:
+                pokemon_dict = create_pokemon_dict(pokemon)
+                response.append(pokemon_dict)
+            return jsonify(response), 200
+        except Exception as e:
+            logger.error(f"Exception occurred: {e}")
+            return jsonify({"message": "An error occurred"}), 500
+
     
 
 
