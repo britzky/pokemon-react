@@ -82,7 +82,7 @@ export const PokemonDetails = () => {
                 {PokemonIcon && <PokemonIcon />}
               </div>
             </div>
-                <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300 flex flex-col items-center py-4`}>
+                <div className={`${typeColors[pokemonType]} border-4 rounded-xl flex flex-col items-center py-4`}>
                     <h1 className="text-5xl">Abilities:</h1>
                     <div className="text-2xl flex flex-col justify-between">
                       {pokemon.abilities.map((ability) => (
