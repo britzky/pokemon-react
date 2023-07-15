@@ -55,10 +55,11 @@ def catch():
             return jsonify({"message": "Pokemon failed"}), 400
         
         name = pokemon_data['name']
-        existing_pokemon = Pokemon.query.filter_by(name=name).first()
+        existing_pokemon = Pokemon.query.join(User.pokemon).filter(User.id == g.current_user.id, Pokemon.name == name).first()
 
-        if existing_pokemon is not None and g.current_user.check_team(existing_pokemon):
-            return jsonify({"message": f"You already have a {name.title()}", "status": "warning"}), 400
+        if existing_pokemon is not None:
+            if g.current_user.check_team(existing_pokemon):
+                return jsonify({"message": f"You already have a {name.title()}", "status": "warning"}), 400
         elif g.current_user.max_pokemon():
             return jsonify({"message": "Your team is already full!", "status": "danger"}), 400
         else:
