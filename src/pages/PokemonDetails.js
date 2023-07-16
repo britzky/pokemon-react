@@ -3,7 +3,7 @@ import { useFetchPokemon } from "../hooks/useFetchPokemon";
 import { typeColors } from "../config/typeColors";
 import { AuthContext } from "../context/AuthContext";
 import { useParams, useNavigate } from "react-router-dom";
-import usePokemonPreprocess from "../hooks/usePokemonPreprocess";
+import { usePokemonPreprocess } from "../hooks";
 
 import { Button, ImageCard, Alerts } from "../components";
 import { typeIcons } from "../components/icons";

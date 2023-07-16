@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-const usePokemonPreprocess = () => {
+export const usePokemonPreprocess = () => {
     return useCallback((pokemon) => {
         const processedPokemon = {
             pokedex_id: pokemon.id,
@@ -20,4 +20,3 @@ const usePokemonPreprocess = () => {
     }, [])
 }
 
-export default usePokemonPreprocess;

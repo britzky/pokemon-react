@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 
+
 export const useGetUserTeam = () => {
     const [userPokemon, setUserPokemon] = useState([]);
 
+
     useEffect(() => {
-        if (!auth.loading && !auth.user) {
-          navigate('/signin');
-          return;
-        };
         const getUserTeam = async () => {
           try {
             const response = await fetch('/team', {
@@ -28,7 +26,7 @@ export const useGetUserTeam = () => {
           };
         };
         getUserTeam();
-      }, [auth.user, navigate, auth.loading]);
+      }, []);
   
     return { userPokemon }
 }
