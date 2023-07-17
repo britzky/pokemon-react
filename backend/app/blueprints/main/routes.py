@@ -104,6 +104,23 @@ def team():
         except Exception as e:
             logger.error(f"Exception occurred: {e}")
             return jsonify({"message": "An error occurred"}), 500
+        
+@main.route('/trainers')
+@token_auth.login_required
+def trainers():
+    try:
+        users = User.query.all()
+        response = []
+        for user in users:
+            user_pokemon = [create_pokemon_dict(pokemon) for pokemon in user.pokemon.all()]
+            response.append({
+                "username": user.user_name,
+                "pokemon": user_pokemon
+            })
+        return jsonify(response), 200
+    except Exception as e:
+        logger.error(f"Exception occurred: {e}")
+        return jsonify({"message": "An error occurred"}), 500
 
     
 
