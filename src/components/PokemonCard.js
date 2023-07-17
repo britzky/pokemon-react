@@ -52,7 +52,7 @@ export const PokemonCard = ({pokemon}) => {
                     <h6>Sp-Atk:</h6>
                     <p>{pokemon.special_attack_stat}</p>
                 </div>
-                <div className="flex gap-1">
+                <div className="flex gap-1 mb-4">
                     <h6>Sp-Def</h6>
                     <p>{pokemon.special_defense_stat}</p>
                 </div>
