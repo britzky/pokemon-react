@@ -115,6 +115,7 @@ def trainers():
             user_pokemon = [create_pokemon_dict(pokemon) for pokemon in user.pokemon.all()]
             response.append({
                 "username": user.user_name,
+                "id": user.id,
                 "pokemon": user_pokemon
             })
         return jsonify(response), 200
