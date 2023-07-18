@@ -21,9 +21,13 @@ export const Trainers = () => {
     <main>
       <div className="flex flex-col items-center gap-5">
         <h1 className="font-bold text-5xl">Trainers:</h1>
+        <div className="md:grid md:grid-cols-3 md:gap-5">
         {trainers && trainers.map((trainer) => (
-          <TrainerCard trainer={trainer} />
+          <div className="my-5">
+            <TrainerCard trainer={trainer} />
+          </div>
         ))}
+        </div>
       </div>
     </main>
   )
