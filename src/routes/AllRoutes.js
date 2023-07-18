@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { Register, SignIn, PokemonDetails, Home, PageNotFound, UsersTeam, Trainers } from "../pages";
+import { Register, SignIn, PokemonDetails, Home, PageNotFound, UsersTeam, Trainers, Fight } from "../pages";
 
 export const AllRoutes = () => {
   return (
@@ -10,7 +10,8 @@ export const AllRoutes = () => {
             <Route path="signin" element={<SignIn />} />
             <Route path="pokemon/:name" element={<PokemonDetails />} />
             <Route path="myteam" element={<UsersTeam />} />
-            <Route path="trainers" element={<Trainers />} />  
+            <Route path="trainers" element={<Trainers />} />
+            <Route path="fight" element={<Fight />} />  
             <Route path ="*" element={<PageNotFound />} />
         </Routes>
     </div>

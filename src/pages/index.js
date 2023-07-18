@@ -5,3 +5,4 @@ export { Register } from "./Register";
 export { SignIn } from "./SignIn";
 export { UsersTeam } from "./UsersTeam";
 export { Trainers } from "./Trainers";
+export { Fight } from "./Fight";
