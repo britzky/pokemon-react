@@ -109,9 +109,8 @@ export const PokemonDetails = () => {
                       pokemonImage={pokemon.sprites.front_default}
                       pokemonType={pokemonType}
                     />                 
-                      <div className="flex justify-around items-center mt-2">
+                      <div className="flex justify-center mt-2">
                         <Button image={pokeball} onClick={() => catchPokemon(pokemon)}>Catch</Button>
-                        <Button image={run}>Run</Button>
                       </div>
                 </div>
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300`}>

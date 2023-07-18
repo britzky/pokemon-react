@@ -1,7 +1,9 @@
 import { typeColors } from '../config/typeColors'
 import { typeIcons } from './icons'
+import trash from '../assets/icons/trash-can.png'
 
 import { ImageCard } from '../components'
+import { Button } from '../components'
 
 export const PokemonCard = ({pokemon}) => {
     let pokemonType = pokemon.pokemon_type[0]
@@ -57,6 +59,9 @@ export const PokemonCard = ({pokemon}) => {
                     <p>{pokemon.special_defense_stat}</p>
                 </div>
             </div>
+        </div>
+        <div className="flex justify-center mb-4">
+            <Button image={trash} imageName='trash-can'>Release</Button>
         </div>
     </div>
   )
