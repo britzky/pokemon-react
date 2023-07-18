@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '../components';
 
@@ -7,16 +6,13 @@ import fight from '../assets/icons/fight.png';
 
 export const TrainerCard = ({trainer}) => {
     const navigate = useNavigate();
-    const [selectedTrainer, setSelectedTrainer] = useState({});
-
 
     const handleFight = () => {
-        setSelectedTrainer({
-            name: trainer.userName, 
+        const selectedTrainerInfo = {
+            name: trainer.username, 
             pokemon: trainer.pokemon,
-        });
-        navigate('/fight');
-        return selectedTrainer
+        };
+        navigate('/fight', { state: { selectedTrainer: selectedTrainerInfo}});
     }
   return (
     <div className="flex flex-col items-center border-2 rounded-lg shadow-lg shadow-black/80 px-10 py-5">
