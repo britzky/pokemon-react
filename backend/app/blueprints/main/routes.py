@@ -123,6 +123,28 @@ def trainers():
     except Exception as e:
         logger.error(f"Exception occurred: {e}")
         return jsonify({"message": "An error occurred"}), 500
+    
+@main.route('/release', methods=['POST'])
+@token_auth.login_required
+def release():
+    try:
+        # Get the pokemon id from the request
+        pokemon_id = request.get_json().get('pokemon_id')
+        # find the pokemon by id
+        selected_pokemon = Pokemon.query.get(pokemon_id)
+
+        if not selected_pokemon:
+            return jsonify({"message": "Pokmeon not found"}), 404
+        
+        #release the pokemon
+        g.current_user.release(selected_pokemon)
+        
+        return jsonify({"message": f"You let go of {selected_pokemon.name}"}), 200
+    except Exception as e:
+        logger.error(f"Exception occurred: {e}")
+        return jsonify({"message": "Failed to release pokemon"}), 500
+        
+
 
     
 
