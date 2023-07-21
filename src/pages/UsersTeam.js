@@ -2,13 +2,15 @@ import { useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import { useGetUserTeam } from "../hooks";
 import { AuthContext } from "../context/AuthContext"
+import { AlertContext } from "../context/AlertContext";
 
-import { PokemonCard } from "../components";
+import { PokemonCard, Alerts } from "../components";
 
 export const UsersTeam = () => {
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
     const { userPokemon, releasePokemon } = useGetUserTeam();
+    const { alert, setAlert } = useContext(AlertContext);
 
     if (!auth.loading && !auth.user) {
       navigate('/signin');
@@ -20,6 +22,7 @@ export const UsersTeam = () => {
 
     return (
       <main>
+          {alert && <Alerts />}
           <div className="flex flex-col items-center">
             <h1 className="font-bold text-3xl">{localUser}'s Team</h1>
             <div className="grid grid-cols-1 md:grid-cols-3">

@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useFetchPokemon } from "../hooks/useFetchPokemon";
 import { typeColors } from "../config/typeColors";
 import { AuthContext } from "../context/AuthContext";
+import { AlertContext } from "../context/AlertContext";
 import { useParams, useNavigate } from "react-router-dom";
 import { usePokemonPreprocess } from "../hooks";
 
@@ -9,18 +10,15 @@ import { Button, ImageCard, Alerts } from "../components";
 import { typeIcons } from "../components/icons";
 
 import pokeball from "../assets/icons/pokeball.svg"
-import run from "../assets/icons/run.svg"
-
 
 export const PokemonDetails = () => {
-    const [message, setMessage] = useState("");
-    const [status, setStatus] = useState("");
     const { name: pokeName } = useParams();
     const navigate = useNavigate();
     const preprocessPokemon = usePokemonPreprocess();
 
     const { loading, error, pokemonInfo: pokemon, moveInfo, moves } = useFetchPokemon(pokeName);
     const { auth } = useContext(AuthContext);
+    const { alert, setAlert } = useContext(AlertContext);
 
     if (loading) {
         return <main> Loading...</main>
@@ -56,15 +54,14 @@ export const PokemonDetails = () => {
         })
         if (!response.ok) {
           const responseData = await response.json()
-          setStatus(responseData.status)
-          setMessage(responseData.message)
-          setTimeout(() => setMessage(null), 3000)
+          setAlert(responseData)
           throw new Error(responseData.message);
         }
         const responseData = await response.json();
-        setStatus(responseData.status)
-        setMessage(responseData.message)
-        setTimeout(() => setMessage(null), 3000)
+        localStorage.setItem('alert', JSON.stringify(responseData))
+        setAlert(responseData)
+        console.log(alert)
+        navigate('/myteam')
       } catch(error){
         console.error('failed to fetch data', error)
       }
@@ -73,7 +70,7 @@ export const PokemonDetails = () => {
 
   return (
     <main>
-    { message && <Alerts message={message} status={status} /> }
+    { alert && <Alerts /> }
             <div className="grid grid-cols-3 gap-7 min-h-screen">
             <div className={`${typeColors[pokemonType]} border-4 py-3 rounded-full col-span-3`}>
               <div className="flex justify-around items-center">
