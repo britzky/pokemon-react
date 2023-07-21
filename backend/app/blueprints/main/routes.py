@@ -112,12 +112,13 @@ def trainers():
         users = User.query.all()
         response = []
         for user in users:
-            user_pokemon = [create_pokemon_dict(pokemon) for pokemon in user.pokemon.all()]
-            response.append({
-                "username": user.user_name,
-                "id": user.id,
-                "pokemon": user_pokemon
-            })
+            if user != g.current_user:
+                user_pokemon = [create_pokemon_dict(pokemon) for pokemon in user.pokemon.all()]
+                response.append({
+                    "username": user.user_name,
+                    "id": user.id,
+                    "pokemon": user_pokemon
+                })
         return jsonify(response), 200
     except Exception as e:
         logger.error(f"Exception occurred: {e}")
