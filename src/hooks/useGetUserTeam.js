@@ -4,6 +4,23 @@ import { useState, useEffect } from 'react';
 export const useGetUserTeam = () => {
     const [userPokemon, setUserPokemon] = useState([]);
 
+    const releasePokemon = async (id) => {
+      try {
+        const response = await fetch('/release', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({pokemon_id: id}),
+          credentials: 'include',
+        })
+        if (!response.ok){
+          throw new Error('Error releasing pokemon');
+        }
+        setUserPokemon((prevPokemon) => prevPokemon.filter(pokemon => pokemon.id !== id))
+      } catch (error) {
+        console.error('Failed to fetch data', error)
+      }
+    }
+
 
     useEffect(() => {
         const getUserTeam = async () => {
@@ -28,5 +45,5 @@ export const useGetUserTeam = () => {
         getUserTeam();
       }, []);
   
-    return { userPokemon }
+    return { userPokemon, releasePokemon }
 }

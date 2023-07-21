@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { typeColors } from '../config/typeColors'
 import { typeIcons } from './icons'
 import trash from '../assets/icons/trash-can.png'
@@ -6,39 +5,10 @@ import trash from '../assets/icons/trash-can.png'
 import { ImageCard } from '../components'
 import { Button } from '../components'
 
-export const PokemonCard = ({pokemon}) => {
-    const [status, setStatus] = useState('');
-    const [message, setMessage] = useState('');
-    
+export const PokemonCard = ({pokemon, onRelease}) => {    
     let pokemonType = pokemon.pokemon_type[0]
     let PokemonIcon = typeIcons[pokemonType]
-
-    const releasePokemon = async (pokemon) => {
-        console.log("Release pokemon: ", pokemon)
-        try {
-            const response = await fetch('/release', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({pokemon_id: pokemon.id}),
-                credentials: 'include',
-            })
-            if (!response.ok) {
-                const responseData = await response.json()
-                setStatus(responseData.status)
-                setMessage(responseData.message)
-                setTimeout(() => setMessage(null), 3000)
-                throw new Error(responseData.message);
-              }
-              const responseData = await response.json();
-              setStatus(responseData.status)
-              setMessage(responseData.message)
-              setTimeout(() => setMessage(null), 3000)
-            } catch(error){
-              console.error('failed to fetch data', error)
-            }
-        }
-    
-
+    console.log(onRelease)
   return (
     <div className={`${typeColors[pokemonType]} border-4 rounded-lg px-5`}>
         <div className="flex items-center justify-around">
@@ -91,7 +61,7 @@ export const PokemonCard = ({pokemon}) => {
             </div>
         </div>
         <div className="flex justify-center mb-4">
-            <Button image={trash} imageName='trash-can' onClick={() => releasePokemon(pokemon)}>Release</Button>
+            <Button image={trash} imageName='trash-can' onClick={() => onRelease(pokemon.id)}>Release</Button>
         </div>
     </div>
   )
