@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { AlertContext } from '../context/AlertContext';
 
 
 export const useGetUserTeam = () => {
     const [userPokemon, setUserPokemon] = useState([]);
+    const {alert, setAlert} = useContext(AlertContext);
 
     const releasePokemon = async (id) => {
       try {
@@ -15,7 +17,10 @@ export const useGetUserTeam = () => {
         if (!response.ok){
           throw new Error('Error releasing pokemon');
         }
+        const data = await response.json()
         setUserPokemon((prevPokemon) => prevPokemon.filter(pokemon => pokemon.id !== id))
+        setAlert(data)
+        console.log("This is the data: ", data)
       } catch (error) {
         console.error('Failed to fetch data', error)
       }
@@ -45,5 +50,5 @@ export const useGetUserTeam = () => {
         getUserTeam();
       }, []);
   
-    return { userPokemon, releasePokemon }
+    return { userPokemon, releasePokemon, alert }
 }

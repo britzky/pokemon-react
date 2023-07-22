@@ -139,7 +139,7 @@ def release():
         #release the pokemon
         g.current_user.release(selected_pokemon)
         
-        return jsonify({"message": f"You let go of {selected_pokemon.name}"}), 200
+        return jsonify({"message": f"You let go of {selected_pokemon.name}", "status": "success"}), 200
     except Exception as e:
         logger.error(f"Exception occurred: {e}")
         return jsonify({"message": "Failed to release pokemon"}), 500

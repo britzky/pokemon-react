@@ -9,8 +9,8 @@ import { PokemonCard, Alerts } from "../components";
 export const UsersTeam = () => {
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
-    const { userPokemon, releasePokemon } = useGetUserTeam();
-    const { alert, setAlert } = useContext(AlertContext);
+    const { userPokemon, releasePokemon, alert } = useGetUserTeam();
+    
 
     if (!auth.loading && !auth.user) {
       navigate('/signin');
