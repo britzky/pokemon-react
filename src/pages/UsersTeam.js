@@ -2,7 +2,6 @@ import { useContext } from "react"
 import { useNavigate } from "react-router-dom";
 import { useGetUserTeam } from "../hooks";
 import { AuthContext } from "../context/AuthContext"
-import { AlertContext } from "../context/AlertContext";
 
 import { PokemonCard, Alerts } from "../components";
 

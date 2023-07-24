@@ -8,7 +8,6 @@ import { Button } from '../components'
 export const PokemonCard = ({pokemon, onRelease}) => {    
     let pokemonType = pokemon.pokemon_type[0]
     let PokemonIcon = typeIcons[pokemonType]
-    console.log(onRelease)
   return (
     <div className={`${typeColors[pokemonType]} border-4 rounded-lg px-5`}>
         <div className="flex items-center justify-around">
@@ -16,6 +15,7 @@ export const PokemonCard = ({pokemon, onRelease}) => {
             <h1 className="font-bold text-4xl m-4 text-center">{pokemon.name}</h1>
             {PokemonIcon && <PokemonIcon height='25' width='25' small='true' />}
         </div>
+
         <div className="flex justify-around ">
             <div className="flex gap-2">
                 <h4 className="font-bold">HP:</h4>
@@ -60,9 +60,11 @@ export const PokemonCard = ({pokemon, onRelease}) => {
                 </div>
             </div>
         </div>
+        {onRelease && 
         <div className="flex justify-center mb-4">
             <Button image={trash} imageName='trash-can' onClick={() => onRelease(pokemon.id)}>Release</Button>
         </div>
+        }
     </div>
   )
 }
