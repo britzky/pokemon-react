@@ -8,16 +8,16 @@ export const PokemonCard = ({pokemon, onRelease, fight, trainer}) => {
     let pokemonType = pokemon.pokemon_type[0]
     let PokemonIcon = typeIcons[pokemonType]
   return (
-    <div className={`${typeColors[pokemonType]} border-4 rounded-lg px-5`}>
+    <div className={`${typeColors[pokemonType]} border-4 rounded-lg px-5 my-7`}>
         {fight ? (
             <>
-            <div className="flex items-center justify-around mt-1">
+            <div className="flex items-center justify-around my-1">
                 {PokemonIcon && <PokemonIcon height='15' width='15' small='true' />}
                 <h1 className="text-center">{trainer}'s {pokemon.name}</h1>
                 {PokemonIcon && <PokemonIcon height='15' width='15' small='true' />}
             </div>
 
-            <div className='flex'>
+            <div className='flex my-1'>
                 <div className="flex flex-col items-center">
                 <ImageCard pokemonImage={pokemon.pokemon_sprite} pokemonType={pokemonType} />
                 </div>
@@ -25,8 +25,7 @@ export const PokemonCard = ({pokemon, onRelease, fight, trainer}) => {
                     {pokemon.ability.map((abl, index) => (
                         <div key={index}>
                             <Button ability>{abl}</Button>
-                        </div>
-                        
+                        </div>  
                     ))}
                 </div>
             </div>

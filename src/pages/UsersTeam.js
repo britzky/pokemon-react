@@ -27,7 +27,7 @@ export const UsersTeam = () => {
             <div className="grid grid-cols-1 md:grid-cols-3">
             {userPokemon && userPokemon.map((pokemon) => (
               <div key={pokemon.id} className="py-7 px-2 flex-basis-100 md:flex-basis-50 lg:flex-basis-33">
-                <PokemonCard pokemon={pokemon} onRelease={releasePokemon} fight trainer={localUser}/>
+                <PokemonCard pokemon={pokemon} onRelease={releasePokemon}/>
               </div>
               ))}
             </div>
