@@ -17,6 +17,9 @@ export const PokemonCard = ({pokemon, onRelease, fight, trainer}) => {
                 {PokemonIcon && <PokemonIcon height='15' width='15' small='true' />}
             </div>
 
+                    <div className="p-2">
+                        <h1>HP: {pokemon.hp_stat}</h1>
+                    </div>
             <div className='flex my-1'>
                 <div className="flex flex-col items-center">
                 <ImageCard pokemonImage={pokemon.pokemon_sprite} pokemonType={pokemonType} />

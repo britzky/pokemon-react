@@ -124,6 +124,11 @@ def trainers():
         logger.error(f"Exception occurred: {e}")
         return jsonify({"message": "An error occurred"}), 500
     
+@main.route('/battle', methods=['POST'])
+@token_auth.login_required
+def battle():
+    
+    
 @main.route('/release', methods=['POST'])
 @token_auth.login_required
 def release():

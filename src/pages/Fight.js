@@ -1,20 +1,53 @@
+import { useContext, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import avatar from '../assets/images/bowlcut.png'
 import { AuthContext } from "../context/AuthContext";
+import { AlertContext } from "../context/AlertContext";
 import { useGetUserTeam } from "../hooks";
 import { PokemonCard, ImageCard } from "../components";
-import { useContext, useState } from "react";
 
 export const Fight = () => {
     const [userMon,  setUserMon] = useState('');
+    const [trainerMon, setTrainerMon] = useState(0);
     const { auth } = useContext(AuthContext);
-    const { userPokemon } = useGetUserTeam();;
+    const { alert, setAlert } = useContext(AlertContext);
+    const { userPokemon } = useGetUserTeam();
     const location = useLocation();
+    
     const trainer = location.state.selectedTrainer;
-
     let localUser = localStorage.getItem('username');
-    console.log('User Pokemon: ', userPokemon)
+
+    useEffect(() => {
+      if (trainer.pokemon[trainerMon].hp === 0 && trainerMon < trainer.pokemon.length - 1){
+        setTrainerMon(trainerMon + 1)
+        battlePokemon(userMon.id, trainer.pokemon[trainerMon].id)
+      }
+    }, [trainer.pokemon, trainerMon]);
+
+    const handleSelectPokemon = (pokemon) => {
+      setUserMon(pokemon);
+      battlePokemon(userMon.id, trainer.pokemon[trainerMon].id);
+    }
+
+    const battlePokemon = async (userMonId, trainerMonId) => {
+      try {
+        const response = await fetch('/battle', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            user_mon_id: userMonId,
+            trainer_mon_id: trainerMonId
+          }),
+          credentials: 'include',
+        })
+        if (!response.ok) throw new Error("Error sending id's")
+        const data = await response.json()
+        setAlert(data)
+      } catch(error){
+        console.error("Failed sending Id's ", error);
+      };
+    }
 
   return (
     <main>
@@ -26,7 +59,7 @@ export const Fight = () => {
                   <ImageCard 
                     pokemonImage={pokemon.pokemon_sprite} 
                     pokemonType={pokemon.pokemon_type[0]}
-                    onClick={() => setUserMon(pokemon)}
+                    onClick={() => handleSelectPokemon(pokemon)}
                   />
                 </div>
             ))}
@@ -42,9 +75,9 @@ export const Fight = () => {
         <PokemonCard pokemon={userMon} fight trainer={localUser} />
       </div>
       }
-      {trainer &&
+      {trainer.pokemon[trainerMon] &&
       <div>
-        <PokemonCard pokemon={trainer.pokemon[0]} fight trainer={trainer.name}/>
+        <PokemonCard pokemon={trainer.pokemon[trainerMon]} fight trainer={trainer.name}/>
       </div>
       }
       <div>
