@@ -67,17 +67,13 @@ def catch():
                 try:
                     new_pokemon = Pokemon(
                         name=pokemon_data["name"],
-                        ability=pokemon_data["ability"],
+                        abilities=pokemon_data["abilities"],
                         base_experience=pokemon_data["base_experience"],
                         pokedex_id=pokemon_data["pokedex_id"],
-                        hp_stat=pokemon_data["hp_stat"],
-                        attack_stat=pokemon_data["attack_stat"],
-                        defense_stat=pokemon_data["defense_stat"],
-                        special_attack_stat=pokemon_data["special_attack_stat"],
-                        special_defense_stat=pokemon_data["special_defense_stat"],
-                        speed_stat=pokemon_data["speed_stat"],
+                        pokemon_stats=pokemon_data["pokemon_stats"],
                         pokemon_sprite=pokemon_data["pokemon_sprite"],
-                        pokemon_type=pokemon_data["pokemon_type"],
+                        pokemon_types=pokemon_data["pokemon_types"],
+                        moves=pokemon_data["moves"],
                     )
                     new_pokemon.save_to_db()
                     g.current_user.catch(new_pokemon)

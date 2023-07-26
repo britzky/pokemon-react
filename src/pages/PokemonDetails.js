@@ -26,6 +26,8 @@ export const PokemonDetails = () => {
     if (error){
         return <main>{error}</main>
     }
+    console.log("moves object: ", moves)
+    console.log("Moves info object: ", moveInfo)
 
     let pokemonType = pokemon.types[0].type.name;
     
@@ -36,10 +38,10 @@ export const PokemonDetails = () => {
     
     let PokemonIcon = typeIcons[pokemonType]
 
-    const catchPokemon = async (pokemon) => {
+    const catchPokemon = async (pokemon, moveInfo) => {
       console.log("catchPokemon function called", pokemon)
       
-      const processPokemon = preprocessPokemon(pokemon)
+      const processPokemon = preprocessPokemon(pokemon, moveInfo)
       
       if (!auth.user){
         navigate('/signin');
@@ -122,12 +124,12 @@ export const PokemonDetails = () => {
                     <h1 className="text-5xl m-4">Moves Learned by Level-Up:</h1>
                     <div className="grid grid-flow-row-dense grid-cols-5 gap-3 text-2xl p-7">
                       {moves.map((move, index) => {
-                        let moveIcon = moveInfo[index].type.name;
+                        let moveIcon = move.type.name;
                         let MoveIcon = typeIcons[moveIcon]
                         return (
                           <div key={index} className="flex items-center">
-                          {MoveIcon && <MoveIcon height='20' width='20' move='true' />}
-                          <p className="mx-3">{move.move.name}</p>
+                          {MoveIcon && <MoveIcon height='15' width='15' move='true' />}
+                          <p className="mx-3">{move.name}</p>
                         </div>
                         )
                         })}
