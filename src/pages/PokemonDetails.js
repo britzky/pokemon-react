@@ -46,6 +46,7 @@ export const PokemonDetails = () => {
       }
       
       const processPokemon = preprocessPokemon(pokemon, moves)
+      console.log("Processed Pokemon: ", processPokemon)
       
       if (!auth.user){
         navigate('/signin');

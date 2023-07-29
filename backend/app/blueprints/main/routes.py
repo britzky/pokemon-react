@@ -26,17 +26,13 @@ def create_pokemon_dict(pokemon):
         pokemon_dict = {
             "id": pokemon.id,
             "name": pokemon.name,
-            "ability": pokemon.ability,
+            "abilities": pokemon.abilities,
             "base_experience": pokemon.base_experience,
             "pokedex_id": pokemon.pokedex_id,
-            "hp_stat": pokemon.hp_stat,
-            "attack_stat": pokemon.attack_stat,
-            "defense_stat": pokemon.defense_stat,
-            "special_attack_stat": pokemon.special_attack_stat,
-            "special_defense_stat": pokemon.special_defense_stat,
-            "speed_stat": pokemon.speed_stat,
+            "pokemon_stats": pokemon.pokemon_stats,
             "pokemon_sprite": pokemon.pokemon_sprite,
-            "pokemon_type": pokemon.pokemon_type
+            "pokemon_types": pokemon.pokemon_types,
+            "pokemon_moves": pokemon.pokemon_moves
         }
         return pokemon_dict
 
@@ -73,7 +69,7 @@ def catch():
                         pokemon_stats=pokemon_data["pokemon_stats"],
                         pokemon_sprite=pokemon_data["pokemon_sprite"],
                         pokemon_types=pokemon_data["pokemon_types"],
-                        moves=pokemon_data["moves"],
+                        pokemon_moves=pokemon_data["pokemon_moves"],
                     )
                     new_pokemon.save_to_db()
                     g.current_user.catch(new_pokemon)
