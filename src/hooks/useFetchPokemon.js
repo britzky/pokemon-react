@@ -40,7 +40,24 @@ export const useFetchPokemon = (pokeName) => {
                 const movePromises = levelUpMoves.map( async (move) => {
                     const moveResponse = await fetch(move.move.url)
                     const moveData = await moveResponse.json()
-                    return moveData
+                    const englishEffectEntry = moveData.effect_entries.find(entry => entry.language.name ===  'en');
+                    const englishFlavorText = moveData.flavor_text_entries.find(entry => entry.language.name === 'en');
+                    return {
+                        accuracy: moveData.accuracy,
+                        effect_chance: moveData.effect_chance,
+                        damage_class: moveData.damage_class.name,
+                        name: moveData.name,
+                        type: moveData.type.name,
+                        effect_entry: englishEffectEntry ? englishEffectEntry.effect : 'Exciting pokemon effect!',
+                        flavor_text: englishFlavorText ? englishFlavorText.flavor_text : 'Exciting pokemon move!',
+                        power: moveData.power,
+                        stat_changes: moveData.stat_changes.map((change) => ({
+                            amount: change.change,
+                            stat: change.stat.name,
+                        })),
+                        target: moveData.target.name
+
+                    }
                 })
                 const movePromiseInfo = await Promise.all(movePromises);
                 setMoves(movePromiseInfo)

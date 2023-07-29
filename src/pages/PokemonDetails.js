@@ -16,7 +16,7 @@ export const PokemonDetails = () => {
     const navigate = useNavigate();
     const preprocessPokemon = usePokemonPreprocess();
 
-    const { loading, error, pokemonInfo: pokemon, moveInfo, moves } = useFetchPokemon(pokeName);
+    const { loading, error, pokemonInfo: pokemon, moves } = useFetchPokemon(pokeName);
     const { auth } = useContext(AuthContext);
     const { alert, setAlert } = useContext(AlertContext);
 
@@ -26,22 +26,26 @@ export const PokemonDetails = () => {
     if (error){
         return <main>{error}</main>
     }
-    console.log("moves object: ", moves)
-    console.log("Moves info object: ", moveInfo)
-
+    
     let pokemonType = pokemon.types[0].type.name;
     
     let pokemonStats = pokemon.stats.map((stat) => ({
-        baseStat: stat.base_stat,
-        statName: stat.stat.name,
+      baseStat: stat.base_stat,
+      statName: stat.stat.name,
     }));
     
     let PokemonIcon = typeIcons[pokemonType]
-
-    const catchPokemon = async (pokemon, moveInfo) => {
+    
+    const catchPokemon = async (pokemon, moves) => {
       console.log("catchPokemon function called", pokemon)
+      console.log("moves object: ", moves)
+      console.log("Pokemon Abilities: ", pokemon.abilities)
+      console.log("Pokemon Stats: ", pokemon.stats)
+      if (!moves){
+        <main>Loading moves...</main>
+      }
       
-      const processPokemon = preprocessPokemon(pokemon, moveInfo)
+      const processPokemon = preprocessPokemon(pokemon, moves)
       
       if (!auth.user){
         navigate('/signin');
@@ -109,7 +113,7 @@ export const PokemonDetails = () => {
                       pokemonType={pokemonType}
                     />                 
                       <div className="flex justify-center mt-2">
-                        <Button image={pokeball} onClick={() => catchPokemon(pokemon)}>Catch</Button>
+                        <Button image={pokeball} onClick={() => catchPokemon(pokemon, moves)}>Catch</Button>
                       </div>
                 </div>
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl dark:text-gray-300`}>
@@ -124,11 +128,11 @@ export const PokemonDetails = () => {
                     <h1 className="text-5xl m-4">Moves Learned by Level-Up:</h1>
                     <div className="grid grid-flow-row-dense grid-cols-5 gap-3 text-2xl p-7">
                       {moves.map((move, index) => {
-                        let moveIcon = move.type.name;
+                        let moveIcon = move.type;
                         let MoveIcon = typeIcons[moveIcon]
                         return (
                           <div key={index} className="flex items-center">
-                          {MoveIcon && <MoveIcon height='15' width='15' move='true' />}
+                          {MoveIcon && <MoveIcon height='20' width='20' small='true' />}
                           <p className="mx-3">{move.name}</p>
                         </div>
                         )

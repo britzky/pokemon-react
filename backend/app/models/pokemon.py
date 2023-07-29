@@ -1,14 +1,9 @@
 from app import db 
 
-class Move(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    url = db.Column(db.String)
-    pokemon_id = db.Column(db.Integer, db.ForeignKey('pokemon.id'), nullable=False)
-    move_info = db.relationship('MoveInfo', backref='move', lazy=True)
-
-class MoveInfo(db.Model):
-    id = db.Column(db.Integer, priimary_key=True)
+pokemon_moves = db.Table('pokemon_moves',
+    db.Column('pokemon_id', db.Integer, db.ForeignKey('pokemon.id')),
+    db.Column('move_id', db.Integer, db.ForeignKey('move.id'))                         
+)
 
 class Pokemon(db.Model):
     id = db.Column(db.Integer, primary_key=True)

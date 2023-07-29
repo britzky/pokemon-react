@@ -13,5 +13,5 @@ class PokemonSchema(Schema):
     pokemon_stats = fields.List(fields.Nested(StatSchema), required=True)
     pokemon_sprite = fields.Str(required=True)
     pokemon_types = fields.List(fields.Str(), required=True)
-    moves = fields.Nested('MoveSchema', many=True, dump_only=True)
+    pokemon_moves = fields.Nested('MoveSchema', many=True, dump_only=True)
     
