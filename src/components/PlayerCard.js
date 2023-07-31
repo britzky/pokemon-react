@@ -12,6 +12,7 @@ export const PlayerCard = ({pokemon, trainer}) => {
         acc[move.type].push(move);
         return acc;
     }, {});
+    console.log("Moves: ", movesByType)
 
   return (
     <div className={`${pokemonColor} border-4 rounded-lg px-5 my-7`}>

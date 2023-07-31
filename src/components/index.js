@@ -10,3 +10,4 @@ export { Alerts } from "./Alerts";
 export { PokemonCard } from "./PokemonCard";
 export { TrainerCard } from "./TrainerCard";
 export { PlayerCard } from "./PlayerCard";
+export { EnemyCard } from "./EnemyCard";
