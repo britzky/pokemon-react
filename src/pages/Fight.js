@@ -14,7 +14,6 @@ export const Fight = () => {
     const { alert, setAlert } = useContext(AlertContext);
     const { userPokemon } = useGetUserTeam();
     const location = useLocation();
-    console.log("Location state: ", location.state)
     
     const trainer = location.state.selectedTrainer;
     let localUser = localStorage.getItem('username');
