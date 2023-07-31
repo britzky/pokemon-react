@@ -4,8 +4,7 @@ import { usePokemonType } from '../hooks'
 import { ImageCard, Button } from '../components'
 
 export const PokemonCard = ({pokemon, onRelease, fight, trainer}) => {    
-    const { pokemonType, pokemonColor, PokemonIcon} = usePokemonType(pokemon);
-    let pokemonHp = pokemon.pokemon_stats.find(stat => stat.stat_name === 'hp').base_stat
+    const { pokemonType, pokemonColor, PokemonIcon, pokemonHp} = usePokemonType(pokemon);
 
     let movesByType = pokemon.pokemon_moves.reduce((acc, move) => {
         if(!acc[move.type]) {

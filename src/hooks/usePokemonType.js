@@ -5,5 +5,6 @@ export const usePokemonType = (pokemon) => {
     let pokemonType = pokemon.pokemon_types[0];
     let PokemonIcon = typeIcons[pokemonType];
     let pokemonColor = typeColors[pokemonType];
-    return {pokemonType, PokemonIcon, pokemonColor}
+    let pokemonHp = pokemon.pokemon_stats.find(stat => stat.stat_name === 'hp').base_stat
+    return {pokemonType, PokemonIcon, pokemonColor, pokemonHp}
 }

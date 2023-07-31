@@ -5,7 +5,7 @@ import avatar from '../assets/images/bowlcut.png'
 import { AuthContext } from "../context/AuthContext";
 import { AlertContext } from "../context/AlertContext";
 import { useGetUserTeam } from "../hooks";
-import { PokemonCard, ImageCard } from "../components";
+import { PokemonCard, ImageCard, PlayerCard } from "../components";
 
 export const Fight = () => {
     const [userMon,  setUserMon] = useState('');
@@ -72,7 +72,7 @@ export const Fight = () => {
       </div>
       {userMon && 
       <div>
-        <PokemonCard pokemon={userMon} fight trainer={localUser} />
+        <PlayerCard pokemon={userMon} trainer={localUser} />
       </div>
       }
       {trainer.pokemon[trainerMon] &&
