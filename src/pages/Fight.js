@@ -14,12 +14,13 @@ export const Fight = () => {
     const { alert, setAlert } = useContext(AlertContext);
     const { userPokemon } = useGetUserTeam();
     const location = useLocation();
+    console.log("Location state: ", location.state)
     
     const trainer = location.state.selectedTrainer;
     let localUser = localStorage.getItem('username');
 
     useEffect(() => {
-      if (trainer.pokemon[trainerMon].hp === 0 && trainerMon < trainer.pokemon.length - 1){
+      if (trainer.pokemon[trainerMon].pokemon_stats[0].base_stat === 0 && trainerMon < trainer.pokemon.length - 1){
         setTrainerMon(trainerMon + 1)
         battlePokemon(userMon.id, trainer.pokemon[trainerMon].id)
       }
@@ -58,7 +59,7 @@ export const Fight = () => {
                 <div key={pokemon.id}>
                   <ImageCard 
                     pokemonImage={pokemon.pokemon_sprite} 
-                    pokemonType={pokemon.pokemon_type[0]}
+                    pokemonType={pokemon.pokemon_types[0]}
                     onClick={() => handleSelectPokemon(pokemon)}
                   />
                 </div>
@@ -93,7 +94,7 @@ export const Fight = () => {
                 <div key={pokemon.id}>
                   <ImageCard 
                     pokemonImage={pokemon.pokemon_sprite} 
-                    pokemonType={pokemon.pokemon_type[0]}
+                    pokemonType={pokemon.pokemon_types[0]}
                   />
                 </div>
             ))}

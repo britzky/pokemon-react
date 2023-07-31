@@ -22,7 +22,7 @@ export const PokemonCard = ({pokemon, onRelease, fight, trainer}) => {
                 <ImageCard pokemonImage={pokemon.pokemon_sprite} pokemonType={pokemonType} />
                 </div>
                 <div className="flex flex-col justify-start">
-                    {pokemon.abilites.map((ability, index) => (
+                    {pokemon.abilities.map((ability, index) => (
                         <div key={index}>
                             <Button ability>{ability}</Button>
                         </div>  
