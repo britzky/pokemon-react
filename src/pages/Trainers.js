@@ -23,7 +23,7 @@ export const Trainers = () => {
         <h1 className="font-bold text-5xl">Trainers:</h1>
         <div className="md:grid md:grid-cols-3 md:gap-5">
         {trainers && trainers.map((trainer) => (
-          <div className="my-5">
+          <div className="my-5" key={trainer.id}>
             <TrainerCard trainer={trainer} />
           </div>
         ))}
