@@ -5,8 +5,9 @@ import trash from '../assets/icons/trash-can.png'
 import { ImageCard, Button } from '../components'
 
 export const PokemonCard = ({pokemon, onRelease, fight, trainer}) => {    
-    let pokemonType = pokemon.pokemon_type[0]
+    let pokemonType = pokemon.pokemon_types[0]
     let PokemonIcon = typeIcons[pokemonType]
+    let pokemonHp = pokemon.pokemon_stats.find(stat => stat.stat_name === 'hp').base_stat
   return (
     <div className={`${typeColors[pokemonType]} border-4 rounded-lg px-5 my-7`}>
         {fight ? (
@@ -16,18 +17,14 @@ export const PokemonCard = ({pokemon, onRelease, fight, trainer}) => {
                 <h1 className="text-center">{trainer}'s {pokemon.name}</h1>
                 {PokemonIcon && <PokemonIcon height='15' width='15' small='true' />}
             </div>
-
-                    <div className="p-2">
-                        <h1>HP: {pokemon.hp_stat}</h1>
-                    </div>
             <div className='flex my-1'>
                 <div className="flex flex-col items-center">
                 <ImageCard pokemonImage={pokemon.pokemon_sprite} pokemonType={pokemonType} />
                 </div>
                 <div className="flex flex-col justify-start">
-                    {pokemon.ability.map((abl, index) => (
+                    {pokemon.abilites.map((ability, index) => (
                         <div key={index}>
-                            <Button ability>{abl}</Button>
+                            <Button ability>{ability}</Button>
                         </div>  
                     ))}
                 </div>
@@ -44,7 +41,7 @@ export const PokemonCard = ({pokemon, onRelease, fight, trainer}) => {
             <div className="flex justify-around ">
                 <div className="flex gap-2">
                     <h4 className="font-bold">HP:</h4>
-                    <p>{pokemon.hp_stat}</p>
+                    <p>{pokemonHp}</p>
                 </div>
                 <div className="flex gap-2">
                     <h4 className="font-bold">EXP:</h4>
@@ -56,37 +53,23 @@ export const PokemonCard = ({pokemon, onRelease, fight, trainer}) => {
                 <div className="flex flex-col items-center">
                     <h4 className="font-bold">Abilities:</h4>
                     <ul>
-                    {pokemon.ability.map((abl, index) => (
-                        <li key={index} className="my-4">{abl}</li>
+                    {pokemon.abilities.map((abilities, index) => (
+                        <li key={index} className="my-4">{abilities}</li>
                     ))}
                     </ul>
                 </div>
                 <div className="flex flex-col items-center">
-                    <h4 className="font-bold">Stats:</h4>
-                    <div className="flex gap-1">
-                        <h6>Atk:</h6>
-                        <p>{pokemon.attack_stat}</p>
-                    </div>
-                    <div className="flex gap-1">
-                        <h6>Def:</h6>
-                        <p>{pokemon.defense_stat}</p>
-                    </div>
-                    <div className="flex gap-1">
-                        <h6>Spd:</h6>
-                        <p>{pokemon.speed_stat}</p>
-                    </div>
-                    <div className="flex gap-1">
-                        <h6>Sp-Atk:</h6>
-                        <p>{pokemon.special_attack_stat}</p>
-                    </div>
-                    <div className="flex gap-1 mb-4">
-                        <h6>Sp-Def</h6>
-                        <p>{pokemon.special_defense_stat}</p>
-                    </div>
+                    <h4 className="font-bold text-center">Stats:</h4>
+                    {pokemon.pokemon_stats.map((stat, index) => (
+                        <div className="flex gap-2" key={index}>
+                            <h6>{stat.stat_name}</h6>
+                            <p>{stat.base_stat}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
             {onRelease && 
-            <div className="flex justify-center mb-4">
+            <div className="flex justify-center my-4">
                 <Button image={trash} imageName='trash-can' onClick={() => onRelease(pokemon.id)}>Release</Button>
             </div>
             }
