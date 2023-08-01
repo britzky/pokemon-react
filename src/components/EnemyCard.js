@@ -1,5 +1,6 @@
 import { usePokemonType } from "../hooks";
 import { ImageCard } from "../components";
+
 export const EnemyCard = ({pokemon, trainer}) => {
     const {PokemonIcon, pokemonType, pokemonColor, pokemonHp} = usePokemonType(pokemon);
   return (
