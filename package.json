@@ -14,17 +14,15 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.1",
     "react-router-dom": "^6.14.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^5.1.6",
+    "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "proxy": "http://127.0.0.1:5000/",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "vite",
     "start-backend": "cd backend && myvenv\\Scripts\\flask run --no-debugger",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "tsc && vite build",
+    "serve": "vite preview"
   },
   "eslintConfig": {
     "extends": [
@@ -45,6 +43,10 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^3.3.2"
+    "@vitejs/plugin-react": "^4.0.4",
+    "tailwindcss": "^3.3.2",
+    "vite": "^4.4.8",
+    "vite-plugin-svgr": "^3.2.0",
+    "vite-tsconfig-paths": "^4.2.0"
   }
 }

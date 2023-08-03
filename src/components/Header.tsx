@@ -22,7 +22,7 @@ export const Header = () => {
 
 
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     const queryTerm = event.target.search.value.toLowerCase();
     event.target.reset();

@@ -28,7 +28,7 @@ const useAuth = () => {
     }, [])
 
     //method to authenticate and store token and user info
-    const authenticate = (token, userData) => {
+    const authenticate = (token: string, userData: any) => {
         console.log('Authenticating with: ', token, userData)
         setUser({token, ...userData})
 
