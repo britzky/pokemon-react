@@ -1,10 +1,11 @@
 import { createContext, useEffect, useState } from "react";
+import { User, AuthContextProps, AuthProviderProps } from '../types/auth';
 
-export const AuthContext = createContext();
+export const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 const useAuth = () => {
-    const [user, setUser] = useState(null)
-    const [loading, setLoading] = useState(true)
+    const [user, setUser] = useState<User | null>(null)
+    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
         const verifyUser = async () =>{
@@ -51,7 +52,7 @@ const useAuth = () => {
 }
 
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     const auth = useAuth()
 
     return (
