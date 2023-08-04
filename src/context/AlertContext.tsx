@@ -1,10 +1,11 @@
 import { createContext, useState, useEffect } from 'react';
+import { Alert, AlertContextProps, AlertProviderProps } from '../types/alert';
 
-export const AlertContext = createContext();
+export const AlertContext = createContext<AlertContextProps | undefined>(undefined);
 
-export const AlertProvider = ({children}) => {
+export const AlertProvider: React.FC<AlertProviderProps> = ({children}) => {
 
-    const [alert, setAlert] = useState({message: '', status: ''});
+    const [alert, setAlert] = useState<Alert | null>(null);
 
     useEffect(() => {
         const storedAlert = localStorage.getItem('alert');
