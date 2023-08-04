@@ -9,7 +9,7 @@ export interface User {
 export interface AuthContextProps {
     auth: {
         loading: boolean;
-        authenticate: (token: string, userData: any) => void;
+        authenticate: (token: string, userData: User) => void;
         logout: () => Promise<void>;
         user: User | null;
     };
