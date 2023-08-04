@@ -1,4 +1,5 @@
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { RegisterFormData } from '../types/register';
 
 
 export const Register = () => {
@@ -8,9 +9,9 @@ export const Register = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm()
+  } = useForm<RegisterFormData>()
 
-  const onSubmit = async ({confirmPassword, ...data}) => {
+  const onSubmit: SubmitHandler<RegisterFormData> = async ({confirmPassword, ...data}) => {
     try {
       const response = await fetch('/register', {
         method: 'POST',
@@ -36,35 +37,32 @@ export const Register = () => {
             <div className="flex flex-col items-center gap-3 border-2 rounded-xl p-4 bg-white shadow-lg shadow-gray-400 dark:bg-gray-900 dark:border-gray-600 dark:text-white dark:shadow-lg dark:shadow-black ">
               <h1 className="text-2xl">Register Now</h1>
               <div className=" flex gap-7">
-                  <label htmlFor="first name">
+                  <label htmlFor="first_name">
                     First Name:
                     <input 
                       type="text" 
                       id="firstName" 
-                      name="firstName" 
                       placeholder="Santa" 
                       autoComplete="off"
                       {...register("first_name", {required: true})} 
                     />
                   </label>
-                  <label htmlFor="last name">
+                  <label htmlFor="last_name">
                     Last Name:
                     <input 
                       type="text" 
                       id="lastName" 
-                      name="lastName" 
                       placeholder="Claus" 
                       autoComplete="off"
                       {...register("last_name", {required: true})} 
                     />
                   </label>
               </div>
-                <label className="w-full" htmlFor="user name">
+                <label className="w-full" htmlFor="user_name">
                   User Name:
                   <input 
                     type="text" 
                     id="userName" 
-                    name="userName" 
                     placeholder="CookieLuver" 
                     autoComplete="off"
                     {...register("user_name", {required: true})} 
@@ -76,7 +74,6 @@ export const Register = () => {
                   <input 
                     type="email" 
                     id="email" 
-                    name="email" 
                     placeholder="example@gmail.com" 
                     autoComplete="off"
                     {...register("email", {required: true})} 
@@ -87,7 +84,6 @@ export const Register = () => {
                 <input 
                   type="password" 
                   id="password" 
-                  name="password" 
                   autoComplete="off"
                   {...register("password", {required: true, minLength: 8})} 
                 />
@@ -98,7 +94,6 @@ export const Register = () => {
                 <input 
                   type="password" 
                   id="confirmPassword" 
-                  name="confirmPassword" 
                   autoComplete="off"
                   {...register("confirmPassword", {required: true, validate: value => value === password || "The passwords do not match"})} 
                 />
