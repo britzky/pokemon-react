@@ -1,8 +1,19 @@
-import { usePokemonType } from "../hooks";
-import { ImageCard } from "../components";
+import { usePokemonType } from "../hooks"
+import { ImageCard, Button } from '.'
 
-export const EnemyCard = ({pokemon, trainer}) => {
+
+export const PlayerCard = ({pokemon, trainer}) => {
     const {PokemonIcon, pokemonType, pokemonColor, pokemonHp} = usePokemonType(pokemon);
+
+    let movesByType = pokemon.pokemon_moves.reduce((acc, move) => {
+        if(!acc[move.type]) {
+            acc[move.type] = [];
+        }
+        acc[move.type].push(move);
+        return acc;
+    }, {});
+    console.log("Moves: ", movesByType)
+
   return (
     <div className={`${pokemonColor} border-4 rounded-lg px-5 my-7`}>
         <div className="flex items-center justify-around my-1">
@@ -16,6 +27,12 @@ export const EnemyCard = ({pokemon, trainer}) => {
         </div>
         <div className='my-1'>
             <ImageCard pokemonImage={pokemon.pokemon_sprite} pokemonType={pokemonType} />
+            <div className="mx-4 flex flex-wrap items-center">
+                <h1 className="text-xl">Move types:</h1>
+                {Object.keys(movesByType).map((type) => (
+                    <Button ability>{type}</Button>
+                    ))}
+            </div>
         </div>
     </div>
   )

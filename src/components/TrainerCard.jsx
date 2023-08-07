@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Button } from '../components';
+import { Button } from '.';
 
 import avatar from '../assets/images/bowlcut.png';
 import fight from '../assets/icons/fight.png';

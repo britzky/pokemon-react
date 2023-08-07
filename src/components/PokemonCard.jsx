@@ -1,7 +1,7 @@
 import trash from '../assets/icons/trash-can.png'
 import { usePokemonType } from '../hooks'
 
-import { ImageCard, Button } from '../components'
+import { ImageCard, Button } from '.'
 
 export const PokemonCard = ({pokemon, onRelease}) => {    
     const { pokemonType, pokemonColor, PokemonIcon, pokemonHp} = usePokemonType(pokemon);
