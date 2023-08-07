@@ -7,7 +7,7 @@ export interface User {
 }
 
 export interface AuthContextProps {
-    auth: {
+    manageAuth: {
         loading: boolean;
         authenticate: (token: string, userData: User) => void;
         logout: () => Promise<void>;

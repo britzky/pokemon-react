@@ -3,7 +3,7 @@ import { User, AuthContextProps, AuthProviderProps } from '../types/auth';
 
 export const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-const useAuth = () => {
+const useManageAuth = () => {
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
 
@@ -53,10 +53,10 @@ const useAuth = () => {
 
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
-    const auth = useAuth()
+    const manageAuth = useManageAuth()
 
     return (
-        <AuthContext.Provider value={{auth}}>
+        <AuthContext.Provider value={{manageAuth}}>
             {children}
         </AuthContext.Provider>
     )

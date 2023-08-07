@@ -1,12 +1,14 @@
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom";
-import { useGetUserTeam } from "../hooks";
+import { useGetUserTeam, useAuth } from "../hooks";
 import { AuthContext } from "../context/AuthContext"
 
 import { PokemonCard, Alerts } from "../components";
 
 export const UsersTeam = () => {
-    const { auth } = useContext(AuthContext);
+    const context = useContext(AuthContext);
+
+    const auth = useAuth();
     const navigate = useNavigate();
     const { userPokemon, releasePokemon, alert } = useGetUserTeam();
     
