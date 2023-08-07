@@ -1,4 +1,3 @@
-import React from 'react'
 import error from '../assets/images/pagenotfound.png'
 
 export const PageNotFound = () => {
