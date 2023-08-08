@@ -39,7 +39,7 @@ const useManageAuth = () => {
 
     //method to clear the auth info when the user logs out
     const logout = async () => {
-        await fetch('/logout', {
+        await fetch('/api/logout', {
             method: "POST",
             credentials: 'include'
         })

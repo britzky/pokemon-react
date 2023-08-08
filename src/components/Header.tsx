@@ -1,15 +1,12 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import Logo from '../assets/images/logo.jpg'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../context/AuthContext'
 import { useAuth } from '../hooks'
-
 export const Header = () => {
   const [hidden, setHidden] = useState(true);
-  const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem("darkMode") || false));
+  const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem("darkMode") || ""));
   const navigate = useNavigate()
-  const  auth  = useAuth()
-  const { manageAuth } = useContext(AuthContext)
+  const auth = useAuth();
 
 
   useEffect(() => {
@@ -33,7 +30,7 @@ export const Header = () => {
   }
 
   const handleLogout = () => {
-    manageAuth.logout()
+    auth.logout()
   }
 
   const activeClass = "text-base block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
