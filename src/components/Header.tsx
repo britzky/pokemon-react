@@ -2,12 +2,14 @@ import { useState, useEffect, useContext } from 'react'
 import Logo from '../assets/images/logo.jpg'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
+import { useAuth } from '../hooks'
 
 export const Header = () => {
   const [hidden, setHidden] = useState(true);
   const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem("darkMode") || false));
   const navigate = useNavigate()
-  const { auth } = useContext(AuthContext)
+  const  auth  = useAuth()
+  const manageAuth = useContext(AuthContext)
 
 
   useEffect(() => {
@@ -88,7 +90,7 @@ export const Header = () => {
                   <NavLink to="/trainers" className={({isActive}) => isActive ? activeClass : inActiveClass}>Trainers</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/" onClick={auth.logout} className={({isActive}) => isActive ? activeClass : inActiveClass}>Log out</NavLink>
+                  <NavLink to="/" onClick={manageAuth?.logout} className={({isActive}) => isActive ? activeClass : inActiveClass}>Log out</NavLink>
                 </li>
                 </>
                 ) : (

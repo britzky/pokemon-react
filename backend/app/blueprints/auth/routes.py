@@ -79,7 +79,7 @@ def register():
         return jsonify({"messgage": "An error occurred"}), 500
 
 
-@auth.route('/signin', methods=["POST"])
+@auth.route('/api/signin', methods=["POST"])
 def signin():
     try:
         user_data = request.get_json()

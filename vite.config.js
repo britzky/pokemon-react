@@ -7,7 +7,9 @@ import svgrPlugin from 'vite-plugin-svgr';
 export default defineConfig({
     plugins: [react(), viteTsconfigPaths(), svgrPlugin()],
     server: {
-        proxy: 'http://127.0.0.1:5000'
+        proxy: {
+            '/api': 'http://127.0.0.1:5000'
+        } 
     }
 });
 
