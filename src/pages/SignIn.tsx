@@ -20,7 +20,7 @@ export const SignIn = () => {
       const responseData = await response.json();
       console.log(responseData)
 
-      context?.auth.authenticate(responseData.token, responseData.user)
+      context?.manageAuth.authenticate(responseData.token, responseData.user)
     } catch (error) {
       console.error('An error occured while trying to send data to the server', error)
     }

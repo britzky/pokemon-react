@@ -36,7 +36,6 @@ def create_pokemon_dict(pokemon):
         }
         return pokemon_dict
 
-
 @main.route('/catch', methods=['POST'])
 @token_auth.login_required
 def catch():
