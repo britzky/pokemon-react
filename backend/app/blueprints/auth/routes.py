@@ -48,7 +48,7 @@ def login_required(f):
 token_auth.login_required = login_required
 
 
-@auth.route('/register', methods=['POST'])
+@auth.route('/api/register', methods=['POST'])
 def register():
     try:
         validated_data, errors, error_code = get_validated_user_data()
@@ -109,12 +109,12 @@ def signin():
         return jsonify({"message": "An error occured"}), 500
 
 
-@auth.route('/verify')
+@auth.route('/api/verify')
 @token_auth.login_required
 def verify():
     return jsonify({"message": "Token is valid", "user_id": g.current_user.id}), 200
 
-@auth.route('/logout', methods=["POST"])
+@auth.route('/api/logout', methods=["POST"])
 @token_auth.login_required
 def logout():
     g.current_user.delete_token()

@@ -9,7 +9,7 @@ export const Header = () => {
   const [darkMode, setDarkMode] = useState(JSON.parse(localStorage.getItem("darkMode") || false));
   const navigate = useNavigate()
   const  auth  = useAuth()
-  const manageAuth = useContext(AuthContext)
+  const { manageAuth } = useContext(AuthContext)
 
 
   useEffect(() => {
@@ -30,6 +30,10 @@ export const Header = () => {
     event.target.reset();
 
     return navigate(`/pokemon/${queryTerm}`);
+  }
+
+  const handleLogout = () => {
+    manageAuth.logout()
   }
 
   const activeClass = "text-base block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
@@ -90,7 +94,7 @@ export const Header = () => {
                   <NavLink to="/trainers" className={({isActive}) => isActive ? activeClass : inActiveClass}>Trainers</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/" onClick={manageAuth?.logout} className={({isActive}) => isActive ? activeClass : inActiveClass}>Log out</NavLink>
+                  <NavLink to="/" onClick={handleLogout} className={({isActive}) => isActive ? activeClass : inActiveClass}>Log out</NavLink>
                 </li>
                 </>
                 ) : (

@@ -36,7 +36,7 @@ def create_pokemon_dict(pokemon):
         }
         return pokemon_dict
 
-@main.route('/catch', methods=['POST'])
+@main.route('/api/catch', methods=['POST'])
 @token_auth.login_required
 def catch():
     try:
@@ -82,7 +82,7 @@ def catch():
         logger.error(f"Exception occured: {e}")
         return jsonify({"message": "An error occured"}), 500
     
-@main.route('/release', methods=['POST'])
+@main.route('/api/release', methods=['POST'])
 @token_auth.login_required
 def release():
     try:
@@ -102,7 +102,7 @@ def release():
         logger.error(f"Exception occurred: {e}")
         return jsonify({"message": "Failed to release pokemon"}), 500
     
-@main.route('/team')
+@main.route('/api/team')
 @token_auth.login_required
 def team():
         try:
@@ -116,7 +116,7 @@ def team():
             logger.error(f"Exception occurred: {e}")
             return jsonify({"message": "An error occurred"}), 500
         
-@main.route('/trainers')
+@main.route('/api/trainers')
 @token_auth.login_required
 def trainers():
     try:
@@ -135,7 +135,7 @@ def trainers():
         logger.error(f"Exception occurred: {e}")
         return jsonify({"message": "An error occurred"}), 500
     
-@main.route('/battle', methods=['POST'])
+@main.route('/api/battle', methods=['POST'])
 @token_auth.login_required
 def battle():
     type_affinity = {
