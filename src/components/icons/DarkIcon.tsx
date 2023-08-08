@@ -1,5 +1,14 @@
+interface DarkIcon {
+  height?: string;
+  width?: string;
+  small?: string;
+}
 
-export const DarkIcon = ({height = '50', width='50', small='false'}) => {
+export const DarkIcon: React.FC<DarkIcon> = ({
+  height = '50', 
+  width='50', 
+  small='false'
+}) => {
   return (
     <div className={`rounded-full dark:bg-gray-800 bg-gray-100 ${small === 'true' ? 'p-1.5' : 'p-3'}`}>
       <svg className="text-slate-700 dark:text-slate-900" width={width} height={height} viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">

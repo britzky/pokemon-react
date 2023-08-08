@@ -1,5 +1,14 @@
+interface DragonIcon {
+  height?: string;
+  width?: string;
+  small?: string;
+}
 
-export const DragonIcon = ({height = '50', width = '50', small='false'}) => {
+export const DragonIcon: React.FC<DragonIcon> = ({
+  height = '50', 
+  width = '50', 
+  small='false'
+}) => {
   return (
     <div className={`rounded-full dark:bg-gray-800 bg-gray-100 ${small === 'true' ? 'p-1.5' : 'p-3'}`}>
       <svg className="text-orange-600 dark:text-orange-800" width={width} height={height} viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">

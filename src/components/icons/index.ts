@@ -17,7 +17,28 @@ import { RockIcon } from './RockIcon';
 import { SteelIcon } from './SteelIcon';
 import { WaterIcon } from './WaterIcon';
 
-export const typeIcons = {
+export interface TypeIcons {
+    bug: typeof BugIcon,
+    dark: typeof DarkIcon,
+    dragon: typeof DragonIcon,
+    electric: typeof ElectricIcon,
+    fairy: typeof FairyIcon,
+    fighting: typeof FightingIcon,
+    fire: typeof FireIcon,
+    flying: typeof FlyingIcon,
+    ghost: typeof GhostIcon,
+    grass: typeof GrassIcon,
+    ground: typeof GroundIcon,
+    ice: typeof IceIcon,
+    normal: typeof NormalIcon,
+    poison: typeof PoisonIcon,
+    psychic: typeof PsychicIcon,
+    rock: typeof RockIcon,
+    steel: typeof SteelIcon,
+    water: typeof WaterIcon
+}
+
+export const typeIcons: TypeIcons = {
     bug: BugIcon,
     dark: DarkIcon,
     dragon: DragonIcon,

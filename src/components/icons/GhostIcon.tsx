@@ -1,5 +1,14 @@
+interface GhostIcon {
+  height?: string;
+  width?: string;
+  small?: string;
+}
 
-export const GhostIcon = ({height = '50', width = '50', small='false'}) => {
+export const GhostIcon: React.FC<GhostIcon> = ({
+  height = '50', 
+  width = '50', 
+  small='false'
+}) => {
   return (
     <div className={`rounded-full dark:bg-gray-800 bg-gray-100 ${small === 'true' ? 'p-1.5' : 'p-3'}`}>
       <svg className="text-violet-500 dark:text-violet-700" width={width} height={height} viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">

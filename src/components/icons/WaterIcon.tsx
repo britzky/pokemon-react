@@ -1,5 +1,14 @@
+interface WaterIconProps {
+  height?: string;
+  width?: string;
+  small?: string;
+}
 
-export const WaterIcon = ({height = '50', width = '50', small='false'}) => {
+export const WaterIcon: React.FC<WaterIconProps> = ({
+  height = '50', 
+  width = '50', 
+  small='false'
+}) => {
   return (
     <div className={`rounded-full dark:bg-gray-800 bg-gray-100 ${small === 'true' ? 'p-1.5' : 'p-3'}`}>
       <svg className="text-cyan-500 dark:text-cyan-700" width={width} height={height} viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">

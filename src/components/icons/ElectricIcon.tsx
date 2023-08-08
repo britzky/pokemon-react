@@ -1,5 +1,14 @@
+interface ElectricIcon {
+  height?: string;
+  width?: string;
+  small?: string;
+}
 
-export const ElectricIcon = ({height = '50', width = '50', small='false'}) => {
+export const ElectricIcon: React.FC<ElectricIcon> = ({
+  height = '50', 
+  width = '50', 
+  small='false'
+}) => {
   return (
     <div className={`rounded-full dark:bg-gray-800 bg-gray-100 ${small === 'true' ? 'p-1.5' : 'p-3'}`}>
       <svg className="text-yellow-400 dark:text-yellow-600" width={width} height={height} viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
