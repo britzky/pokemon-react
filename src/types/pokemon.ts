@@ -27,3 +27,38 @@ export interface Pokemon {
     moves: Move[]
 }
 
+
+/* PokeApi types */
+
+export interface MoveLearnMethod {
+    name: string;
+}
+
+export interface VersionGroupDetail {
+    move_learn_method: MoveLearnMethod;
+}
+
+export interface LevelUpMoves {
+    version_group_details: VersionGroupDetail[];
+}
+
+export interface ApiMove {
+    move: {
+        url: string;
+    }
+}
+
+export interface EntryLanguage {
+    language:{
+        name: string;
+    }
+}
+
+export interface StatChanges {
+    change: number;
+    stat: {
+        name: string;
+    }
+
+}
+

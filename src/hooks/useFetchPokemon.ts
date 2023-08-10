@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { VersionGroupDetail, LevelUpMoves, StatChanges, Move, ApiMove, EntryLanguage } from "../types/pokemon";
 
 export const useFetchPokemon = (pokeName: string) => {
     const [pokemonInfo, setPokemonInfo] = useState([]);
-    const [moves, setMoves] = useState([]);
+    const [moves, setMoves] = useState<Move[]>([]);
     const [loading, setLoading] = useState<Boolean>(true)
-    const [error, setError] = useState(null)
+    const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -25,17 +26,17 @@ export const useFetchPokemon = (pokeName: string) => {
                 setPokemonInfo(data);
                 setError(null);
                 
-                const levelUpMoves = data.moves.filter(move => {
-                    return move.version_group_details.some(detail => {
+                const levelUpMoves = data.moves.filter((move: LevelUpMoves) => {
+                    return move.version_group_details.some((detail: VersionGroupDetail) => {
                         return detail.move_learn_method.name === 'level-up'
                     })
                 })
 
-                const movePromises = levelUpMoves.map( async (move) => {
+                const movePromises: Promise<Move>[] = levelUpMoves.map( async (move: ApiMove) => {
                     const moveResponse = await fetch(move.move.url)
                     const moveData = await moveResponse.json()
-                    const englishEffectEntry = moveData.effect_entries.find(entry => entry.language.name ===  'en');
-                    const englishFlavorText = moveData.flavor_text_entries.find(entry => entry.language.name === 'en');
+                    const englishEffectEntry = moveData.effect_entries.find((entry: EntryLanguage) => entry.language.name ===  'en');
+                    const englishFlavorText = moveData.flavor_text_entries.find((entry: EntryLanguage) => entry.language.name === 'en');
                     return {
                         accuracy: moveData.accuracy,
                         effect_chance: moveData.effect_chance,
@@ -45,7 +46,7 @@ export const useFetchPokemon = (pokeName: string) => {
                         effect_entry: englishEffectEntry ? englishEffectEntry.effect : 'Exciting pokemon effect!',
                         flavor_text: englishFlavorText ? englishFlavorText.flavor_text : 'Exciting pokemon move!',
                         power: moveData.power,
-                        stat_changes: moveData.stat_changes.map((change) => ({
+                        stat_changes: moveData.stat_changes.map((change: StatChanges) => ({
                             amount: change.change,
                             stat: change.stat.name,
                         })),
@@ -53,11 +54,13 @@ export const useFetchPokemon = (pokeName: string) => {
 
                     }
                 })
-                const movePromiseInfo = await Promise.all(movePromises);
+                const movePromiseInfo: Move[] = await Promise.all(movePromises);
                 setMoves(movePromiseInfo)
 
             } catch(error) {
-                setError(error.message)
+                if (error instanceof Error){
+                    setError(error.message)
+                }
             } finally {
                 setLoading(false)
             }
