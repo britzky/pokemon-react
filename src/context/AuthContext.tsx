@@ -10,7 +10,7 @@ const useManageAuth = () => {
     useEffect(() => {
         const verifyUser = async () =>{
             try {
-                const response = await fetch('/verify', {
+                const response = await fetch('/api/verify', {
                     method: 'GET',
                     credentials: 'include',
                 })

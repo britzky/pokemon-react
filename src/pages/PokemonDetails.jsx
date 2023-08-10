@@ -89,8 +89,8 @@ export const PokemonDetails = () => {
                 <div className={`${typeColors[pokemonType]} border-4 rounded-xl flex flex-col items-center py-4`}>
                     <h1 className="text-5xl">Abilities:</h1>
                     <div className="text-2xl flex flex-col justify-between">
-                      {pokemon.abilities.map((ability) => (
-                        <p className="py-3">{ability.ability.name}</p>
+                      {pokemon.abilities.map((ability, index) => (
+                        <p key={index} className="py-3">{ability.ability.name}</p>
                       ))}
                     </div>
                 </div>
@@ -99,8 +99,8 @@ export const PokemonDetails = () => {
                     <h1 className="text-5xl pb-3">Stats:</h1>
                     </div>
                     <div className="flex flex-col justify-around h-full text-xl">
-                      {pokemonStats.map((stat) => (
-                        <div className="flex justify-between">
+                      {pokemonStats.map((stat, index) => (
+                        <div key={index} className="flex justify-between">
                         <p>{stat.statName.toUpperCase()}:</p>
                         <p>{stat.baseStat}</p>
                         </div>
@@ -140,19 +140,7 @@ export const PokemonDetails = () => {
                         })}
                     </div>
                 </div>
-                <div className={`${typeColors[pokemonType]} border-4 rounded-xl col-span-3 dark:text-gray-300 mb-7`}>
-                    <h1 className="text-5xl m-4">Appears in:</h1>
-                    <div className="grid grid-flow-row-dense grid-cols-5 gap-3 text-2xl p-7">
-                        {pokemon.game_indices.map((game) => (
-                          <>
-                          <p>{game.version.name}</p>
-                          </>
-                        ))}
-                    </div>
-                </div>
-
             </div>
-    
     </main>
   )
 }
