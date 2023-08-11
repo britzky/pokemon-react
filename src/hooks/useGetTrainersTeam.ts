@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 
-
 export const useGetTrainersTeam = () => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState<Boolean>(true);
+    const [error, setError] = useState<string | null>(null);
     const [trainers, setTrainers] = useState([]);
 
     useEffect(() => {
         const fetchTrainers = async () => {
             try{
-                const response = await fetch('/trainers', {
-                    'Content-Type': 'application/json',
+                const response = await fetch('/api/trainers', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
                     'credentials': 'include'
                 })
                 if (!response.ok){
@@ -20,7 +21,9 @@ export const useGetTrainersTeam = () => {
                 setTrainers(responseData);
                 setLoading(false);
             } catch(error) {
-                setError(error);
+                if (error instanceof Error){
+                    setError(error.message);
+                }
                 setLoading(false)
             }
         };
