@@ -1,12 +1,15 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { AlertContext } from '../context/AlertContext';
+import { useAlert } from '../hooks';
+import { Pokemon } from '../types/pokemon';
+
 
 
 export const useGetUserTeam = () => {
-    const [userPokemon, setUserPokemon] = useState([]);
-    const {alert, setAlert} = useContext(AlertContext);
+    const [userPokemon, setUserPokemon] = useState<Pokemon[]>([]);
+    const {alert, setAlert} = useAlert();
 
-    const releasePokemon = async (id) => {
+    const releasePokemon = async (id: number) => {
       try {
         const response = await fetch('/release', {
           method: 'POST',
@@ -30,7 +33,7 @@ export const useGetUserTeam = () => {
     useEffect(() => {
         const getUserTeam = async () => {
           try {
-            const response = await fetch('/team', {
+            const response = await fetch('/api/team', {
               method: "GET",
               headers: {"Content-Type": "application/json"},
               credentials: 'include'
