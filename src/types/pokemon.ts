@@ -83,3 +83,9 @@ export interface StatChanges {
 
 }
 
+export interface Trainer {
+    username: string;
+    id: number;
+    pokemon: Pokemon[];
+}
+

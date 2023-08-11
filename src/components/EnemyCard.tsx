@@ -1,7 +1,13 @@
 import { usePokemonType } from "../hooks";
 import { ImageCard } from ".";
+import { Pokemon } from "../types/pokemon";
 
-export const EnemyCard = ({pokemon, trainer}) => {
+interface EnemyCardProps {
+    pokemon?: Pokemon 
+    trainer?: 
+}
+
+export const EnemyCard: React.FC<EnemyCardProps> = ({pokemon, trainer}) => {
     const {PokemonIcon, pokemonType, pokemonColor, pokemonHp} = usePokemonType(pokemon);
   return (
     <div className={`${pokemonColor} border-4 rounded-lg px-5 my-7`}>
