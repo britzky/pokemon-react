@@ -1,5 +1,7 @@
 export interface Ability {
-    name: string;
+    ability: {
+        name: string
+    };
 }
 
 export interface StatChange {
@@ -19,12 +21,31 @@ export interface Move {
     target: string;
     type: string;
 }
+export interface PokemonStat {
+    base_stat: number;
+    stat: {
+        name: string;
+    }
+}
+export interface PokemonSprite {
+    front_default: string;
+}
+
+export interface PokemonType {
+    type: {
+        name: string;
+    }
+}
 
 export interface Pokemon {
     abilities: Ability[]
     base_experience: number;
-    id: number
+    name: string;
+    id: number;
     moves: Move[]
+    stats: PokemonStat[]
+    sprites: PokemonSprite
+    types: PokemonType[]
 }
 
 

@@ -1,7 +1,8 @@
 import { useCallback } from "react";
+import { Move, Pokemon } from "../types/pokemon";
 
 export const usePokemonPreprocess = () => {
-    return useCallback((pokemon, moves) => {
+    return useCallback((pokemon: Pokemon, moves: Move[]) => {
         const processedPokemon = {
             pokedex_id: pokemon.id,
             name: pokemon.name,
