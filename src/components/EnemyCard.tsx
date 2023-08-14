@@ -1,5 +1,5 @@
 import { usePokemonType } from "../hooks";
-import { ImageCard } from ".";
+import { ImageCard } from "../components";
 import { Trainer } from "../types/pokemon";
 import { ProcessedPokemon } from "../types/backendapi/pokemon.type";
 

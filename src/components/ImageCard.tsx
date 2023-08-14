@@ -1,8 +1,15 @@
 import { typeImages } from "../assets/images/types"
 
-export const ImageCard = ({pokemonType, pokemonImage, pokemonName, onClick}) => {
+interface ImageCardProps {
+  pokemonType?: string;
+  pokemonImage?: string;
+  pokemonName?: string;
+  onClick?: React.MouseEventHandler<HTMLImageElement>;
+}
 
-    const background = typeImages[pokemonType]
+export const ImageCard: React.FC<ImageCardProps> = ({pokemonType, pokemonImage, pokemonName, onClick}) => {
+
+    const background = typeImages[pokemonType as keyof typeof typeImages]
     const backgroundGradient = "linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4))"
 
   return (
