@@ -1,11 +1,11 @@
 import { useContext } from "react"
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext"
+import { useAuth } from "../hooks"
 import { useGetTrainersTeam } from "../hooks";
 import { TrainerCard } from "../components";
 
 export const Trainers = () => {
-    const { auth } = useContext(AuthContext);
+    const auth = useAuth();
     const navigate = useNavigate();
     const { trainers, loading, error } = useGetTrainersTeam();
 
