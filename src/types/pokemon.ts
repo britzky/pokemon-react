@@ -36,7 +36,19 @@ export interface PokemonType {
         name: string;
     }
 }
+ export interface ProcessedPokemon {
+    pokedex_id: number;
+    name: string;
+    abilities: string[];
+    base_experience: number;
+    pokemon_moves: Move[];
+    pokemon_sprite: string;
+    pokemon_stats: PokemonStat[];
+    pokemon_types: string[]
+ }
 
+
+/* PokeApi types */
 export interface Pokemon {
     abilities: Ability[]
     base_experience: number;
@@ -47,9 +59,6 @@ export interface Pokemon {
     sprites: PokemonSprite
     types: PokemonType[]
 }
-
-
-/* PokeApi types */
 
 export interface MoveLearnMethod {
     name: string;
