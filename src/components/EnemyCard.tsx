@@ -1,10 +1,11 @@
 import { usePokemonType } from "../hooks";
 import { ImageCard } from ".";
-import { Pokemon, Trainer } from "../types/pokemon";
+import { Trainer } from "../types/pokemon";
+import { ProcessedPokemon } from "../types/backendapi/pokemon.type";
 
 interface EnemyCardProps {
-    pokemon?: Pokemon
-    trainer?: string;
+    pokemon: ProcessedPokemon
+    trainer: string;
 }
 
 export const EnemyCard: React.FC<EnemyCardProps> = ({pokemon, trainer}) => {
