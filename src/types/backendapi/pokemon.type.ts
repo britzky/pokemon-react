@@ -1,4 +1,5 @@
 export interface ProcessedPokemon {
+    id?: number;
     pokedex_id: number;
     name: string;
     abilities: string[];

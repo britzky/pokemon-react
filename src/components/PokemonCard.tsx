@@ -6,11 +6,17 @@ import { ProcessedPokemon } from '../types/backendapi/pokemon.type'
 
 interface PokemonCardProps {
     pokemon: ProcessedPokemon;
-    onRelease: boolean;
+    onRelease?: (id: number) => void;
 } 
 
 export const PokemonCard: React.FC<PokemonCardProps> = ({pokemon, onRelease}) => {    
     const { pokemonType, pokemonColor, PokemonIcon, pokemonHp} = usePokemonType(pokemon);
+
+    const handleRelease = () => {
+        if (pokemon.id !== undefined && onRelease !== undefined) {
+            onRelease(pokemon.id);
+        }
+    }
 
   return (
     <div className={`${pokemonColor} border-4 rounded-lg px-5 my-7`}>
@@ -52,7 +58,7 @@ export const PokemonCard: React.FC<PokemonCardProps> = ({pokemon, onRelease}) =>
             </div>
             {onRelease && 
             <div className="flex justify-center my-4">
-                <Button image={trash} imageName='trash-can' onClick={() => onRelease(pokemon.id)}>Release</Button>
+                <Button image={trash} imageName='trash-can' onClick={handleRelease}>Release</Button>
             </div>
             }
             </>   
