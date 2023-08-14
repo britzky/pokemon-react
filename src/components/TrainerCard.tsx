@@ -3,8 +3,13 @@ import { Button } from '.';
 
 import avatar from '../assets/images/bowlcut.png';
 import fight from '../assets/icons/fight.png';
+import { Trainer } from '../types/pokemon';
 
-export const TrainerCard = ({trainer}) => {
+interface TrainerCardProps {
+    trainer: Trainer;
+}
+
+export const TrainerCard: React.FC<TrainerCardProps> = ({trainer}) => {
     const navigate = useNavigate();
 
     const handleFight = () => {
