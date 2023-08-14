@@ -2,8 +2,14 @@ import trash from '../assets/icons/trash-can.png'
 import { usePokemonType } from '../hooks'
 
 import { ImageCard, Button } from '.'
+import { ProcessedPokemon } from '../types/backendapi/pokemon.type'
 
-export const PokemonCard = ({pokemon, onRelease}) => {    
+interface PokemonCardProps {
+    pokemon: ProcessedPokemon;
+    onRelease: boolean;
+} 
+
+export const PokemonCard: React.FC<PokemonCardProps> = ({pokemon, onRelease}) => {    
     const { pokemonType, pokemonColor, PokemonIcon, pokemonHp} = usePokemonType(pokemon);
 
   return (
