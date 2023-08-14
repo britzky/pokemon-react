@@ -1,11 +1,16 @@
 import { usePokemonType } from "../hooks"
 import { ImageCard, Button } from '.'
+import { ProcessedPokemon, Move } from "../types/backendapi/pokemon.type";
 
+interface PlayerCardProps {
+    pokemon: ProcessedPokemon;
+    trainer: string;
+}
 
-export const PlayerCard = ({pokemon, trainer}) => {
+export const PlayerCard: React.FC<PlayerCardProps> = ({pokemon, trainer}) => {
     const {PokemonIcon, pokemonType, pokemonColor, pokemonHp} = usePokemonType(pokemon);
 
-    let movesByType = pokemon.pokemon_moves.reduce((acc, move) => {
+    let movesByType = pokemon.pokemon_moves.reduce<Record<string, Move[]>>((acc, move) => {
         if(!acc[move.type]) {
             acc[move.type] = [];
         }
@@ -30,7 +35,7 @@ export const PlayerCard = ({pokemon, trainer}) => {
             <div className="mx-4 flex flex-wrap items-center">
                 <h1 className="text-xl">Move types:</h1>
                 {Object.keys(movesByType).map((type) => (
-                    <Button ability>{type}</Button>
+                    <Button isAbilityButton>{type}</Button>
                     ))}
             </div>
         </div>
