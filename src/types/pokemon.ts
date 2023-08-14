@@ -44,7 +44,7 @@ export interface PokemonType {
     pokemon_moves: Move[];
     pokemon_sprite: string;
     pokemon_stats: PokemonStat[];
-    pokemon_types: string[]
+    pokemon_types: string[];
  }
 
 
@@ -53,7 +53,7 @@ export interface Pokemon {
     abilities: Ability[]
     base_experience: number;
     name: string;
-    id: number;
+    order: number;
     moves: Move[]
     stats: PokemonStat[]
     sprites: PokemonSprite

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { VersionGroupDetail, LevelUpMoves, StatChanges, Move, ApiMove, EntryLanguage } from "../types/pokemon";
+import { VersionGroupDetail, LevelUpMoves, StatChanges, Move, ApiMove, EntryLanguage, Pokemon } from "../types/pokemon";
 
 export const useFetchPokemon = (pokeName: string) => {
-    const [pokemonInfo, setPokemonInfo] = useState([]);
+    const [pokemonInfo, setPokemonInfo] = useState<Pokemon | null>(null);
     const [moves, setMoves] = useState<Move[]>([]);
     const [loading, setLoading] = useState<Boolean>(true)
     const [error, setError] = useState<string | null>(null)
