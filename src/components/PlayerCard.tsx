@@ -22,9 +22,9 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({pokemon, trainer}) => {
   return (
     <div className={`${pokemonColor} border-4 rounded-lg px-5 my-7`}>
         <div className="flex items-center justify-around my-1">
-            {PokemonIcon && <PokemonIcon height='15' width='15' small='true' />}
+            {PokemonIcon && <PokemonIcon height='25' width='25' />}
             <h1 className="text-center text-xl">{trainer}'s {pokemon.name}</h1>
-            {PokemonIcon && <PokemonIcon height='15' width='15' small='true' />}
+            {PokemonIcon && <PokemonIcon height='25' width='25' />}
         </div>
         <div className="flex items-center justify-evenly my-1">
             <h1>HP:</h1>
@@ -32,7 +32,7 @@ export const PlayerCard: React.FC<PlayerCardProps> = ({pokemon, trainer}) => {
         </div>
         <div className='my-1'>
             <ImageCard pokemonImage={pokemon.pokemon_sprite} pokemonType={pokemonType} />
-            <div className="mx-4 flex flex-wrap items-center">
+            <div className="m-4 flex flex-wrap items-center">
                 <h1 className="text-xl">Move types:</h1>
                 {Object.keys(movesByType).map((type) => (
                     <Button isAbilityButton>{type}</Button>

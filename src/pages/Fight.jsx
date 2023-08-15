@@ -32,7 +32,7 @@ export const Fight = () => {
 
     const battlePokemon = async (userMonId, trainerMonId) => {
       try {
-        const response = await fetch('/battle', {
+        const response = await fetch('/api/battle', {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({
@@ -71,12 +71,12 @@ export const Fight = () => {
         </div>
       </div>
       {userMon && 
-      <div>
+      <div className="flex justify-center">
         <PlayerCard pokemon={userMon} trainer={localUser} />
       </div>
       }
       {trainer.pokemon[trainerMon] &&
-      <div>
+      <div className="flex justify-center">
         <EnemyCard pokemon={trainer.pokemon[trainerMon]} trainer={trainer.name}/>
       </div>
       }
