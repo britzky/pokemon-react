@@ -1,36 +1,38 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import avatar from '../assets/images/bowlcut.png'
-import { AuthContext } from "../context/AuthContext";
-import { AlertContext } from "../context/AlertContext";
-import { useGetUserTeam } from "../hooks";
+import { useAuth, useAlert, useGetUserTeam } from "../hooks";
 import { ImageCard, PlayerCard, EnemyCard } from "../components";
+import { ProcessedPokemon } from "../types/backendapi/pokemon.type";
 
 export const Fight = () => {
-    const [userMon,  setUserMon] = useState('');
-    const [trainerMon, setTrainerMon] = useState(0);
-    const { auth } = useContext(AuthContext);
-    const { alert, setAlert } = useContext(AlertContext);
+    const [userMon,  setUserMon] = useState<ProcessedPokemon | null>(null);
+    const [trainerMon, setTrainerMon] = useState<number>(0);
+    const auth = useAuth()
+    const { alert, setAlert } = useAlert();
     const { userPokemon } = useGetUserTeam();
     const location = useLocation();
     
     const trainer = location.state.selectedTrainer;
     let localUser = localStorage.getItem('username');
-
     useEffect(() => {
       if (trainer.pokemon[trainerMon].pokemon_stats[0].base_stat === 0 && trainerMon < trainer.pokemon.length - 1){
         setTrainerMon(trainerMon + 1)
-        battlePokemon(userMon.id, trainer.pokemon[trainerMon].id)
+        if (userMon?.id !== undefined && trainer.pokemon[trainerMon]?.id !== undefined) {
+          battlePokemon(userMon.id, trainer.pokemon[trainerMon].id);
+        }
       }
-    }, [trainer.pokemon, trainerMon]);
+    }, [userMon, trainer.pokemon, trainerMon]);
 
-    const handleSelectPokemon = (pokemon) => {
+    const handleSelectPokemon = (pokemon: ProcessedPokemon) => {
       setUserMon(pokemon);
-      battlePokemon(userMon.id, trainer.pokemon[trainerMon].id);
+      if (userMon?.id !== undefined && trainer.pokemon[trainerMon]?.id !== undefined) {
+        battlePokemon(userMon.id, trainer.pokemon[trainerMon].id);
+      }
     }
 
-    const battlePokemon = async (userMonId, trainerMonId) => {
+    const battlePokemon = async (userMonId: number, trainerMonId: number) => {
       try {
         const response = await fetch('/api/battle', {
           method: 'POST',
@@ -89,7 +91,7 @@ export const Fight = () => {
             <h1 className="text-2xl md:text-5xl">{trainer.name}</h1>
           </div>
           <div className="grid grid-cols-3">
-            {trainer.pokemon.map((pokemon) => (
+            {trainer.pokemon.map((pokemon: ProcessedPokemon) => (
                 <div key={pokemon.id}>
                   <ImageCard 
                     pokemonImage={pokemon.pokemon_sprite} 

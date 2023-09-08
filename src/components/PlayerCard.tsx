@@ -4,7 +4,7 @@ import { ProcessedPokemon, Move } from "../types/backendapi/pokemon.type";
 
 interface PlayerCardProps {
     pokemon: ProcessedPokemon;
-    trainer: string;
+    trainer: string | null;
 }
 
 export const PlayerCard: React.FC<PlayerCardProps> = ({pokemon, trainer}) => {

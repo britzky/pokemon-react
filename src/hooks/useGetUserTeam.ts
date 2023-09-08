@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { AlertContext } from '../context/AlertContext';
 import { useAlert } from '../hooks';
-import { Pokemon } from '../types/pokemon';
+import { ProcessedPokemon } from '../types/backendapi/pokemon.type';
 
 
 
 export const useGetUserTeam = () => {
-    const [userPokemon, setUserPokemon] = useState<Pokemon[]>([]);
+    const [userPokemon, setUserPokemon] = useState<ProcessedPokemon[]>([]);
     const {alert, setAlert} = useAlert();
 
     const releasePokemon = async (id: number) => {
